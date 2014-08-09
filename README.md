@@ -1,5 +1,4 @@
 # xPermissions
-============
 
 ![xPermissions](https://raw.githubusercontent.com/64FF00/xPermissions/master/xPermissions.png)
 
