@@ -347,7 +347,7 @@ class Commands implements CommandExecutor
 	{
 		if(!$sender->hasPermission($permission))
 		{
-			$sender->sendMessage(TextFormat::RED . "[xPermissions] " . $this->plugin->getConfig->getMSGonIPerms());
+			$sender->sendMessage(TextFormat::RED . $this->plugin->getConfig()->getMSGonIPerms());
 
 			return false;
 		}

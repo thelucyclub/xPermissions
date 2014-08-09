@@ -24,6 +24,8 @@ class xListener implements Listener
 	{
 		if(!$event->getPlayer()->hasPermission("xperms.build"))
 		{
+			$event->getPlayer()->sendMessage(TextFormat::RED . $this->plugin->getConfig()->getMSGonIBuildPerm());
+			
 			$event->setCancelled(true);
 		}
 	}
@@ -32,6 +34,8 @@ class xListener implements Listener
 	{	
 		if(!$event->getPlayer()->hasPermission("xperms.build"))
 		{
+			$event->getPlayer()->sendMessage(TextFormat::RED . $this->plugin->getConfig()->getMSGonIBuildPerm());
+			
 			$event->setCancelled(true);
 		}
 	}
