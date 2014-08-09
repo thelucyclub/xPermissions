@@ -1,0 +1,57 @@
+---
+Default:
+  alias: 'd'
+  default-group: true
+  inheritance: []
+  worlds:
+   world:
+    permissions:
+     - pocketmine.broadcast.user
+     - pocketmine.command.help
+     - pocketmine.command.kill
+     - pocketmine.command.list
+     - pocketmine.command.me
+     - pocketmine.command.tell
+     - pocketmine.command.version
+     - xperms.build
+     - xperms.info
+Mod:
+  alias: 'm'
+  inheritance:
+  - Member
+  worlds:
+   world:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command.gamemode
+    - pocketmine.command.give
+    - pocketmine.command.kick
+    - pocketmine.command.plugins
+    - pocketmine.command.say
+    - pocketmine.command.teleport
+    - pocketmine.command.time
+Admin:
+  alias: 'a'
+  inheritance:
+  - Member
+  - Mod
+  worlds:
+   world:
+    permissions:
+    - pocketmine.command.ban
+    - pocketmine.command.status
+    - pocketmine.command.unban
+    - pocketmine.command.whitelist
+Owner:
+  alias: 'o'
+  inheritance:
+  - Member
+  - Mod
+  - Admin
+  worlds:
+   world:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command
+    - xperms.*
+...
