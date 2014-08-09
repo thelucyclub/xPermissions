@@ -62,6 +62,16 @@ class Group
 		return $this->groupName;
 	}
 	
+	public function getGroupPrefix()
+	{
+		return $this->plugin->getGroupData()["prefix"];
+	}
+	
+	public function getGroupSuffix()
+	{
+		return $this->plugin->getGroupData()["suffix"];
+	}
+	
 	public function getWorldLoadedData(Level $level)
 	{
 		$temp_config = $this->plugin->getGroupsData();

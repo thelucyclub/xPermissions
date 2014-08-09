@@ -22,12 +22,28 @@ class xPermissions extends PluginBase
 	private $config, $groups;
 	
 	public function onEnable()
-	{			
+	{		
 		$this->loadAll();
+		
+		$this->getLogger()->info("Loaded all plugin configurations.");
 		
 		$this->getCommand("xperms")->setExecutor(new Commands($this));
 		
 		$this->getServer()->getPluginManager()->registerEvents(new xListener($this), $this);
+	}
+	
+	public function fixGroupsData()
+	{
+		foreach($this->getAllGroups() as $group)
+		{
+			$temp_config = $this->getGroupsData();
+				
+			if(!isset($temp_config[$group->getName()]["alias"])) $temp_config[$group->getName()]["alias"] = "";
+			if(!isset($temp_config[$group->getName()]["prefix"])) $temp_config[$group->getName()]["prefix"] = "";
+			if(!isset($temp_config[$group->getName()]["suffix"])) $temp_config[$group->getName()]["suffix"] = "";
+				
+			$this->setGroupsData($temp_config);
+		}
 	}
 
 	public function getAllGroups()
@@ -40,6 +56,16 @@ class xPermissions extends PluginBase
 		}
 		
 		return $result;
+	}
+	
+	public function getAttachment(Player $player)
+	{
+		if(!isset($this->attachments[$player->getName()]))
+		{
+			$this->attachments[$player->getName()] = $player->addAttachment($this);
+		}
+		
+		return $this->attachments[$player->getName()];
 	}
 	
 	public function getConfiguration()
@@ -104,10 +130,6 @@ class xPermissions extends PluginBase
 		return substr($permission, 1) === "-";
 	}
 	
-	public function isValidPermission($permission)
-	{
-	}
-	
 	public function isValidRegExp($pattern)
 	{
 		return preg_match($pattern, null) === false;
@@ -120,6 +142,8 @@ class xPermissions extends PluginBase
 		$this->config = new Configuration($this);
 		
 		$this->loadGroupsConfig();
+		
+		$this->fixGroupsData();
 		
 		$this->recalculatePlayerPermissions();
 	}
@@ -136,19 +160,32 @@ class xPermissions extends PluginBase
 	}
 	
 	public function recalculatePlayerPermissions()
-	{
+	{		
 		foreach($this->getServer()->getLevels() as $level)
 		{
 			foreach($this->getServer()->getOnlinePlayers() as $player)
 			{
-				$this->setPermissions($level, $this->getUser($player->getName()));	
+				$user = $this->getUser($player->getName());
+				
+				$this->setPermissions($level, $user);	
 			}
 		}
 	}
 	
+	public function removeAttachment(Player $player)
+	{
+		$player->removeAttachment($this->getAttachment($player));
+		
+		unset($this->attachment[$player->getName()]);
+	}
+	
 	public function setGroup(Level $level, Group $group, $player)
 	{
-		$this->getUser($player->getName())->setUserGroup($level, $group);
+		$user = $this->getUser($player->getName());
+		
+		$user->setUserGroup($level, $group);
+		
+		$this->setPermissions($level, $user);
 	}
 	
 	public function setGroupsData($temp_config)
@@ -165,7 +202,7 @@ class xPermissions extends PluginBase
 	{
 		if($user->getPlayer() instanceof Player)
 		{			
-			$attachment = $user->getAttachment();
+			$attachment = $this->getAttachment($user->getPlayer());
 		
 			foreach(array_keys($attachment->getPermissions()) as $old_permission)
 			{

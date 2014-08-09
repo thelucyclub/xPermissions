@@ -1,6 +1,8 @@
 ---
 Default:
   alias: 'd'
+  prefix: '[Default]'
+  suffix: ''
   default-group: true
   inheritance: []
   worlds:
@@ -17,8 +19,10 @@ Default:
      - xperms.info
 Mod:
   alias: 'm'
+  prefix: '[Mod]'
+  suffix: ''
   inheritance:
-  - Member
+  - Default
   worlds:
    world:
     permissions:
@@ -32,8 +36,10 @@ Mod:
     - pocketmine.command.time
 Admin:
   alias: 'a'
+  prefix: '[Admin]'
+  suffix: ''
   inheritance:
-  - Member
+  - Default
   - Mod
   worlds:
    world:
@@ -44,8 +50,10 @@ Admin:
     - pocketmine.command.whitelist
 Owner:
   alias: 'o'
+  prefix: '[Owner]'
+  suffix: ''
   inheritance:
-  - Member
+  - Default
   - Mod
   - Admin
   worlds:

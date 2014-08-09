@@ -15,6 +15,11 @@ class Configuration
 		$this->loadConfiguration();
 	}
 	
+	public function isFormatterEnabled()
+	{
+		return $this->config->get("enable-formatter");
+	}
+	
 	public function getMSGonGroupChange()
 	{
 		return $this->config->get("message-on-group-change");
@@ -38,6 +43,11 @@ class Configuration
 		}
 
 		$this->config = $this->plugin->getConfig();
+		
+		if(!$this->config->get("enable-formatter"))
+		{
+			$this->config->set("enable-formatter", "true");
+		}
 
 		if(!$this->config->get("message-on-insufficient-build-permission"))
 		{

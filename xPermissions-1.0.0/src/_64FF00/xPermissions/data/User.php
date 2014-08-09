@@ -12,7 +12,7 @@ use pocketmine\utils\Config;
 
 class User
 {
-	private $attachment, $config, $plugin, $player;
+	private $config, $plugin, $player;
 	
 	public function __construct(xPermissions $plugin, IPlayer $player)
 	{

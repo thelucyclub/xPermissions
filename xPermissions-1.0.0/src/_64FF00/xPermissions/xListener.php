@@ -13,6 +13,8 @@ use pocketmine\event\player\PlayerQuitEvent;
 
 use pocketmine\Player;
 
+use pocketmine\utils\Config;
+
 class xListener implements Listener
 {
 	public function __construct(xPermissions $plugin)
@@ -22,19 +24,23 @@ class xListener implements Listener
 
 	public function onBlockBreak(BlockBreakEvent $event)
 	{
-		if(!$event->getPlayer()->hasPermission("xperms.build"))
+		$player = $event->getPlayer();
+		
+		if(!$player()->hasPermission("xperms.build"))
 		{
-			$event->getPlayer()->sendMessage(TextFormat::RED . $this->plugin->getConfig()->getMSGonIBuildPerm());
+			$player()->sendMessage(TextFormat::RED . $this->plugin->getConfiguration()->getMSGonIBuildPerm());
 			
 			$event->setCancelled(true);
 		}
 	}
 
 	public function onBlockPlace(BlockPlaceEvent $event)
-	{	
-		if(!$event->getPlayer()->hasPermission("xperms.build"))
+	{
+		$player = $event->getPlayer();
+		
+		if(!$player->hasPermission("xperms.build"))
 		{
-			$event->getPlayer()->sendMessage(TextFormat::RED . $this->plugin->getConfig()->getMSGonIBuildPerm());
+			$player->sendMessage(TextFormat::RED . $this->plugin->getConfiguration()->getMSGonIBuildPerm());
 			
 			$event->setCancelled(true);
 		}
@@ -42,24 +48,54 @@ class xListener implements Listener
 
 	public function onLevelChange(EntityLevelChangeEvent $event)
 	{		
-		if($event->getEntity() instanceof Player)
+		$player = $event->getEntity();
+		
+		$user = $this->plugin->getUser($player->getName());
+		
+		$level = $event->getTarget();
+		
+		if($player instanceof Player)
 		{
-			$this->plugin->setPermissions($event->getTarget(), $this->plugin->getUser($event->getEntity()->getName()));
+			$this->plugin->setPermissions($level, $user);
+		}
+	}
+	
+	public function onPlayerChat(PlayerChatEvent $event)
+	{
+		$player = $event->getPlayer();
+		
+		$user = $this->plugin->getUser($player->getName());
+		
+		$groupName = $user->getUserGroup($player->getLevel())->getName();
+		
+		$node = $this->plugin->getConfiguration()->isFormatterEnabled();
+		
+		if(isset($node) and $node === true)
+		{
+			$event->setFormat("<[" . $groupName . "] " . $player->getName() . "> " . $event->getMessage());
 		}
 	}
 	
 	public function onPlayerJoin(PlayerJoinEvent $event)
 	{
-		$this->plugin->setPermissions($event->getPlayer()->getLevel(), $this->plugin->getUser($event->getPlayer()->getName()));
+		$player = $event->getPlayer();
+		
+		$user = $this->plugin->getUser($player->getName());
+		
+		$this->plugin->setPermissions($player->getLevel(), $user);
 	}
 
 	public function onPlayerKick(PlayerKickEvent $event)
 	{
-		$this->plugin->getUser($event->getPlayer()->getName())->removeAttachment();
+		$player = $event->getPlayer();
+		
+		$this->plugin->removeAttachment($player);
 	}
 
 	public function onPlayerQuit(PlayerQuitEvent $event)
 	{
-		$this->plugin->getUser($event->getPlayer()->getName())->removeAttachment();
+		$player = $event->getPlayer();
+		
+		$this->plugin->removeAttachment($player);
 	}
 }

@@ -196,14 +196,16 @@ class Commands implements CommandExecutor
 											
 							break;
 						}
+						
+						$user = $this->plugin->getUser($player->getName());
 								
 						$status = $player instanceof Player ? "ONLINE" : "OFFLINE";
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] ----- Information for " . $player->getName() . " -----");		
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Username: " . $player->getName() . " [" . $status . "]");					
-						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Group: " . $this->plugin->getUser($player->getName())->getUserGroup($level)->getName());
+						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Group: " . $user->getUserGroup($level)->getName());
 								
-						foreach($this->plugin->getUser($player->getName())->getUserPermissions($level) as $permission)
+						foreach($user->getUserPermissions($level) as $permission)
 						{
 							$output .= TextFormat::GREEN . "[xPermissions] - " . $permission . "\n";
 						}
@@ -284,8 +286,10 @@ class Commands implements CommandExecutor
 											
 							break;
 						}
+						
+						$user = $this->plugin->getUser($player->getName());
 								
-						$this->plugin->getUser($player->getName())->addUserPermission($level, $permission);
+						$user->addUserPermission($level, $permission);
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Added the permission to " . $player->getName() . " successfully.");
 							
@@ -315,8 +319,10 @@ class Commands implements CommandExecutor
 											
 							break;
 						}
+						
+						$user = $this->plugin->getUser($player->getName());
 								
-						$this->plugin->getUser($player->getName())->removeUserPermission($level, $permission);
+						$user->removeUserPermission($level, $permission);
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Removed the permission from " . $player->getName() . " successfully.");
 								
@@ -347,7 +353,7 @@ class Commands implements CommandExecutor
 	{
 		if(!$sender->hasPermission($permission))
 		{
-			$sender->sendMessage(TextFormat::RED . $this->plugin->getConfig()->getMSGonIPerms());
+			$sender->sendMessage(TextFormat::RED . $this->plugin->getConfiguration()->getMSGonIPerms());
 
 			return false;
 		}
