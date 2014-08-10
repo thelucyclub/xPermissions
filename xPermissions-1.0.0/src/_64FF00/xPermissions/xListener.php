@@ -26,7 +26,7 @@ class xListener implements Listener
 	{
 		$player = $event->getPlayer();
 		
-		if(!$player()->hasPermission("xperms.build"))
+		if(!$player->hasPermission("xperms.build"))
 		{
 			$player()->sendMessage(TextFormat::RED . $this->plugin->getConfiguration()->getMSGonIBuildPerm());
 			
