@@ -14,6 +14,7 @@ use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\Player;
 
 use pocketmine\utils\Config;
+use pocketmine\utils\TextFormat;
 
 class xListener implements Listener
 {

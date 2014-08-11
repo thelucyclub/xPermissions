@@ -132,7 +132,7 @@ class Commands implements CommandExecutor
 								
 						$group->removeGroupPermission($level, $permission);
 								
-						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Added the permission to the group successfully.");
+						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Removed the permission from the group successfully.");
 								
 						break;
 								
