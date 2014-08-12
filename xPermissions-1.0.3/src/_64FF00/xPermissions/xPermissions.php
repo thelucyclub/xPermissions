@@ -241,7 +241,5 @@ class xPermissions extends PluginBase
 		}
 			
 		$player->recalculatePermissions();
-		
-		print_r($attachment->getPermissions());
 	}
 }
