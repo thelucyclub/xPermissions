@@ -14,6 +14,14 @@ class Configuration
 		
 		$this->loadConfiguration();
 	}
+	/*
+	
+	public function isExFeaturesEnabled()
+	{
+		return $this->config->get("enable-experimental-features");
+	}
+	
+	*/
 	
 	public function isFormatterEnabled()
 	{
@@ -44,9 +52,18 @@ class Configuration
 
 		$this->config = $this->plugin->getConfig();
 		
+		/*
+		
+		if(!$this->config->get("enable-experimental-features"))
+		{
+			$this->config->set("enable-experimental-features", true);
+		}
+		
+		*/
+		
 		if(!$this->config->get("enable-formatter"))
 		{
-			$this->config->set("enable-formatter", "true");
+			$this->config->set("enable-formatter", true);
 		}
 
 		if(!$this->config->get("message-on-insufficient-build-permission"))

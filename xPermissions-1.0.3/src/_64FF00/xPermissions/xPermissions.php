@@ -9,6 +9,8 @@ use pocketmine\level\Level;
 
 use pocketmine\OfflinePlayer;
 
+use pocketmine\permission\Permission;
+
 use pocketmine\Player;
 
 use pocketmine\plugin\PluginBase;
@@ -56,6 +58,13 @@ class xPermissions extends PluginBase
 		}
 		
 		return $result;
+	}
+	
+	public function getAllPermissions()
+	{
+		$permissions = $this->getServer()->getPluginManager()->getPermissions();
+		
+		return $permissions;
 	}
 	
 	public function getAttachment(Player $player)
@@ -125,9 +134,16 @@ class xPermissions extends PluginBase
 		return new User($this, $this->getValidPlayer($userName));
 	}
 	
-	public function isNegativeNode($permission)
+	public function isNegativePerm($node)
 	{
-		return substr($permission, 1) === "-";
+		return substr($node, 0, 1) === "-";
+	}
+		
+	public function isValidPerm($node)
+	{	
+		$permission = $this->getServer()->getPluginManager()->getPermission($node);
+		
+		return $permission instanceof Permission;
 	}
 	
 	public function isValidRegExp($pattern)
@@ -165,9 +181,7 @@ class xPermissions extends PluginBase
 		{
 			foreach($this->getServer()->getOnlinePlayers() as $player)
 			{
-				$user = $this->getUser($player->getName());
-				
-				$this->setPermissions($level, $user);	
+				$this->setPermissions($level, $player);	
 			}
 		}
 	}
@@ -185,7 +199,10 @@ class xPermissions extends PluginBase
 		
 		$user->setUserGroup($level, $group);
 		
-		$this->setPermissions($level, $user);
+		if($player instanceof Player)
+		{
+			$this->setPermissions($level, $player);
+		}
 	}
 	
 	public function setGroupsData($temp_config)
@@ -198,30 +215,33 @@ class xPermissions extends PluginBase
 		}
 	}
 	
-	public function setPermissions(Level $level, User $user)
+	public function setPermissions(Level $level, Player $player)
 	{
-		if($user->getPlayer() instanceof Player)
-		{			
-			$attachment = $this->getAttachment($user->getPlayer());
+		$attachment = $this->getAttachment($player);
 		
-			foreach(array_keys($attachment->getPermissions()) as $old_permission)
-			{
-				$attachment->unsetPermission($old_permission);
-			}	
-
-			foreach($this->getPermissions($level, $user) as $permission)
-			{
-				if(!$this->isNegativeNode($permission))
-				{
-					$attachment->setPermission($permission, true);
-				}
-				else
-				{
-					$attachment->setPermission($permission, false);
-				}
-			}
+		$user = $this->getUser($player->getName());
 			
-			$user->getPlayer()->recalculatePermissions();
+		foreach($this->getAllPermissions() as $old_perm)
+		{
+			$attachment->unsetPermission($old_perm);
 		}
+
+		foreach($this->getPermissions($level, $user) as $new_perm)
+		{
+			if(!$this->isNegativePerm($new_perm))
+			{
+				$attachment->setPermission($new_perm, true);
+			}
+			else
+			{
+				$fixed_perm = substr($new_perm, 1);
+				
+				$attachment->setPermission($fixed_perm, false);
+			}
+		}
+			
+		$player->recalculatePermissions();
+		
+		print_r($attachment->getPermissions());
 	}
 }

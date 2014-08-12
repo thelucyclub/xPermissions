@@ -51,13 +51,11 @@ class xListener implements Listener
 	{		
 		$player = $event->getEntity();
 		
-		$user = $this->plugin->getUser($player->getName());
-		
 		$level = $event->getTarget();
 		
 		if($player instanceof Player)
 		{
-			$this->plugin->setPermissions($level, $user);
+			$this->plugin->setPermissions($level, $player);
 		}
 	}
 	
@@ -69,9 +67,9 @@ class xListener implements Listener
 		
 		$groupName = $user->getUserGroup($player->getLevel())->getName();
 		
-		$node = $this->plugin->getConfiguration()->isFormatterEnabled();
+		$config_node = $this->plugin->getConfiguration()->isFormatterEnabled();
 		
-		if(isset($node) and $node === true)
+		if(isset($config_node) and $config_node === true)
 		{
 			$event->setFormat("<[" . $groupName . "] " . $player->getName() . "> " . $event->getMessage());
 		}
@@ -81,9 +79,7 @@ class xListener implements Listener
 	{
 		$player = $event->getPlayer();
 		
-		$user = $this->plugin->getUser($player->getName());
-		
-		$this->plugin->setPermissions($player->getLevel(), $user);
+		$this->plugin->setPermissions($player->getLevel(), $player);
 	}
 
 	public function onPlayerKick(PlayerKickEvent $event)

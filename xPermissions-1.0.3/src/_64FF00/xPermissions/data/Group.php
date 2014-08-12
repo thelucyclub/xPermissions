@@ -78,6 +78,8 @@ class Group
 		
 		if(!isset($temp_config[$this->groupName]["worlds"][$level->getName()]))
 		{
+			$this->plugin->getLogger()->warning("Permissions not set in " . $this->groupName . " in level: " . $level->getName() . ".");
+			
 			$temp_config[$this->groupName]["worlds"][$level->getName()] = array(
 				"permissions" => array(
 				),

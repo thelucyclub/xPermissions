@@ -82,6 +82,13 @@ class Commands implements CommandExecutor
 						}
 								
 						$permission = strtolower($args[3]);
+						
+						if(!$this->plugin->isValidPerm($permission))
+						{
+							$sender->sendMessage(TextFormat::RED . "[xPermissions] [ERROR] Permission node " . $args[3] . " doesn't exist.");
+											
+							break;
+						}
 								
 						$level = isset($args[4]) ? $this->plugin->getServer()->getLevelByName($args[4]) : $this->plugin->getServer()->getDefaultLevel();
 							
@@ -120,6 +127,13 @@ class Commands implements CommandExecutor
 						}
 								
 						$permission = strtolower($args[3]);
+						
+						if(!$this->plugin->isValidPerm($permission))
+						{
+							$sender->sendMessage(TextFormat::RED . "[xPermissions] [ERROR] Permission node " . $args[3] . " doesn't exist.");
+											
+							break;
+						}
 								
 						$level = isset($args[4]) ? $this->plugin->getServer()->getLevelByName($args[4]) : $this->plugin->getServer()->getDefaultLevel();
 							
@@ -277,6 +291,13 @@ class Commands implements CommandExecutor
 						$player = $this->plugin->getValidPlayer($args[2]);
 								
 						$permission = strtolower($args[3]);
+						
+						if(!$this->plugin->isValidPerm($permission))
+						{
+							$sender->sendMessage(TextFormat::RED . "[xPermissions] [ERROR] Permission node " . $args[3] . " doesn't exist.");
+											
+							break;
+						}
 								
 						$level = isset($args[4]) ? $this->plugin->getServer()->getLevelByName($args[4]) : $this->plugin->getServer()->getDefaultLevel();
 							
@@ -310,6 +331,13 @@ class Commands implements CommandExecutor
 						$player = $this->plugin->getValidPlayer($args[2]);
 								
 						$permission = strtolower($args[3]);
+						
+						if(!$this->plugin->isValidPerm($permission))
+						{
+							$sender->sendMessage(TextFormat::RED . "[xPermissions] [ERROR] Permission node " . $args[3] . " doesn't exist.");
+											
+							break;
+						}
 								
 						$level = isset($args[4]) ? $this->plugin->getServer()->getLevelByName($args[4]) : $this->plugin->getServer()->getDefaultLevel();
 							
