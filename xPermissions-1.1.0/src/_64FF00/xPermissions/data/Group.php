@@ -64,12 +64,12 @@ class Group
 	
 	public function getGroupPrefix()
 	{
-		return $this->plugin->getGroupData()["prefix"];
+		return $this->getGroupData()["prefix"];
 	}
 	
 	public function getGroupSuffix()
 	{
-		return $this->plugin->getGroupData()["suffix"];
+		return $this->getGroupData()["suffix"];
 	}
 	
 	public function getWorldLoadedData(Level $level)

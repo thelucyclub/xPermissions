@@ -14,6 +14,7 @@ class Configuration
 		
 		$this->loadConfiguration();
 	}
+	
 	/*
 	
 	public function isExFeaturesEnabled()
@@ -23,9 +24,9 @@ class Configuration
 	
 	*/
 	
-	public function isFormatterEnabled()
+	public function getChatFormat()
 	{
-		return $this->config->get("enable-formatter");
+		return $this->config->get("chat-format");
 	}
 	
 	public function getMSGonGroupChange()
@@ -41,6 +42,11 @@ class Configuration
 	public function getMSGonIPerms()
 	{
 		return $this->config->get("message-on-insufficient-permissions");
+	}
+	
+	public function isFormatterEnabled()
+	{
+		return $this->config->get("enable-formatter");
 	}
 	
 	public function loadConfiguration()
@@ -60,6 +66,11 @@ class Configuration
 		}
 		
 		*/
+		
+		if(!$this->config->get("chat-format"))
+		{
+			$this->config->set("chat-format", "<{PREFIX} {USER_NAME}> {MESSAGE}");
+		}
 		
 		if(!$this->config->get("enable-formatter"))
 		{

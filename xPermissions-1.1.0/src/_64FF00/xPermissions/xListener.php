@@ -63,15 +63,13 @@ class xListener implements Listener
 	{
 		$player = $event->getPlayer();
 		
-		$user = $this->plugin->getUser($player->getName());
-		
-		$groupName = $user->getUserGroup($player->getLevel())->getName();
+		$format = $this->plugin->getFormattedMessage($player, $event->getMessage());
 		
 		$config_node = $this->plugin->getConfiguration()->isFormatterEnabled();
 		
 		if(isset($config_node) and $config_node === true)
 		{
-			$event->setFormat("<[" . $groupName . "] " . $player->getName() . "> " . $event->getMessage());
+			$event->setFormat($format);
 		}
 	}
 	
