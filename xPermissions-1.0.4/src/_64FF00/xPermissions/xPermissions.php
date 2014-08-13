@@ -60,13 +60,6 @@ class xPermissions extends PluginBase
 		return $result;
 	}
 	
-	public function getAllPermissions()
-	{
-		$permissions = $this->getServer()->getPluginManager()->getPermissions();
-		
-		return $permissions;
-	}
-	
 	public function getAttachment(Player $player)
 	{
 		if(!isset($this->attachments[$player->getName()]))
@@ -100,6 +93,11 @@ class xPermissions extends PluginBase
 		}
 		
 		return null;
+	}
+	
+	public function getFixedPerm($node)
+	{
+		return $this->isNegativePerm($node) ? substr($node, 1) : $node;
 	}
 	
 	public function getGroup($groupName)
@@ -140,8 +138,10 @@ class xPermissions extends PluginBase
 	}
 		
 	public function isValidPerm($node)
-	{	
-		$permission = $this->getServer()->getPluginManager()->getPermission($node);
+	{
+		$fixed_perm = $this->getFixedPerm($node);
+		
+		$permission = $this->getServer()->getPluginManager()->getPermission($fixed_perm);
 		
 		return $permission instanceof Permission;
 	}
@@ -221,7 +221,7 @@ class xPermissions extends PluginBase
 		
 		$user = $this->getUser($player->getName());
 			
-		foreach($this->getAllPermissions() as $old_perm)
+		foreach(array_keys($attachment->getPermissions()) as $old_perm)
 		{
 			$attachment->unsetPermission($old_perm);
 		}
@@ -234,7 +234,7 @@ class xPermissions extends PluginBase
 			}
 			else
 			{
-				$fixed_perm = substr($new_perm, 1);
+				$fixed_perm = $this->getFixedPerm($new_perm);
 				
 				$attachment->setPermission($fixed_perm, false);
 			}
