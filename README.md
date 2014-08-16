@@ -8,7 +8,8 @@
 - Set up permissions for different groups
 - Multi-world permissions
 - Multi-group inheritance system
-- Group Aliases
+- Support of prefixes, suffixes, and chat format!
+- Group aliases
 - And so on...
 
 ## Commands
