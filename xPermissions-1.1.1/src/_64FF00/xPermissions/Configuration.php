@@ -49,6 +49,15 @@ class Configuration
 		return $this->config->get("enable-formatter");
 	}
 	
+	/*
+	
+	public function isOpOverrideEnabled()
+	{
+		return $this->config->get("override-op-permissions");
+	}
+	
+	*/
+	
 	public function loadConfiguration()
 	{
 		if(!(file_exists($this->plugin->getDataFolder() . "config.yml")))
@@ -76,6 +85,15 @@ class Configuration
 		{
 			$this->config->set("enable-formatter", true);
 		}
+		
+		/*
+		
+		if(!$this->config->get("override-op-permissions"))
+		{
+			$this->config->set("override-op-permissions", true);
+		}
+		
+		*/
 
 		if(!$this->config->get("message-on-insufficient-build-permission"))
 		{

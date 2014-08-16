@@ -245,12 +245,12 @@ class xPermissions extends PluginBase
 		$attachment = $this->getAttachment($player);
 		
 		$user = $this->getUser($player->getName());
-			
+		
 		foreach(array_keys($attachment->getPermissions()) as $old_perm)
 		{
 			$attachment->unsetPermission($old_perm);
 		}
-
+		
 		foreach($this->getPermissions($level, $user) as $new_perm)
 		{
 			if(!$this->isNegativePerm($new_perm))

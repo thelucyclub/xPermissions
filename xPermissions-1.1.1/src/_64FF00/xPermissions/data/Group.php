@@ -41,16 +41,22 @@ class Group
 	{
 		$permissions = $this->getWorldLoadedData($level)[$this->groupName]["worlds"][$level->getName()]["permissions"];
 		
-		if(isset($this->getGroupData()["inheritance"]) and is_array($this->getGroupData()["inheritance"]))
+		$inherited_groups = $this->getInheritedGroups();
+		
+		if(isset($inherited_groups) and is_array($inherited_groups))
 		{
-			foreach($this->getGroupData()["inheritance"] as $groupName)
+			foreach($inherited_groups as $groupName)
 			{
 				$group = $this->plugin->getGroup($groupName);
 				
-				if($group != null)
+				$group_permissions = $group->getWorldLoadedData($level)[$group->groupName]["worlds"][$level->getName()]["permissions"];
+				
+				if($group === null)
 				{
-					$permissions = array_merge($permissions, $group->getWorldLoadedData($level)[$this->groupName]["worlds"][$level->getName()]["permissions"]);
+					$this->plugin->getLogger()->error("Group " . $groupName . " not found in group: " . $this->groupName . "'s inheritance section.");
 				}
+				
+				$permissions = array_merge($permissions, $group_permissions);
 			}
 		}
 		
@@ -70,6 +76,11 @@ class Group
 	public function getGroupSuffix()
 	{
 		return $this->getGroupData()["suffix"];
+	}
+	
+	public function getInheritedGroups()
+	{
+		return $this->getGroupData()["inheritance"];
 	}
 	
 	public function getWorldLoadedData(Level $level)
