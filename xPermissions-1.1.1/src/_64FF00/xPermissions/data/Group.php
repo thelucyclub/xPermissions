@@ -62,8 +62,6 @@ class Group
 			}
 		}
 		
-		print_r($permissions);
-		
 		return $permissions;
 	}
 	
