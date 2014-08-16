@@ -49,16 +49,20 @@ class Group
 			{
 				$group = $this->plugin->getGroup($groupName);
 				
-				$group_permissions = $group->getWorldLoadedData($level)[$group->groupName]["worlds"][$level->getName()]["permissions"];
-				
 				if($group === null)
 				{
-					$this->plugin->getLogger()->error("Group " . $groupName . " not found in group: " . $this->groupName . "'s inheritance section.");
+					$this->plugin->getLogger()->error("Group " . $groupName . " not found in " . $this->groupName . "'s inheritance section.");
+					
+					continue;
 				}
+				
+				$group_permissions = $group->getWorldLoadedData($level)[$group->groupName]["worlds"][$level->getName()]["permissions"];
 				
 				$permissions = array_merge($permissions, $group_permissions);
 			}
 		}
+		
+		print_r($permissions);
 		
 		return $permissions;
 	}
@@ -89,7 +93,7 @@ class Group
 		
 		if(!isset($temp_config[$this->groupName]["worlds"][$level->getName()]))
 		{
-			$this->plugin->getLogger()->warning("Permissions not set in " . $this->groupName . " in level: " . $level->getName() . ".");
+			$this->plugin->getLogger()->warning("Permissions not set in Group " . $this->groupName . " in Level " . $level->getName() . ".");
 			
 			$temp_config[$this->groupName]["worlds"][$level->getName()] = array(
 				"permissions" => array(
