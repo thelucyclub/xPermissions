@@ -186,7 +186,7 @@ class xPermissions extends PluginBase
 		
 		$this->fixGroupsData();
 		
-		$this->recalculatePlayerPermissions();
+		$this->recalculatePermissions();
 	}
 	
 	public function loadGroupsConfig()
@@ -200,7 +200,7 @@ class xPermissions extends PluginBase
 		));
 	}
 	
-	public function recalculatePlayerPermissions()
+	public function recalculatePermissions()
 	{		
 		foreach($this->getServer()->getLevels() as $level)
 		{

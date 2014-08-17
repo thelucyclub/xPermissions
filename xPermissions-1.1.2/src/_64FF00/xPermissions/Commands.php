@@ -36,6 +36,8 @@ class Commands implements CommandExecutor
 		switch($args[0])
 		{
 			case "group":
+			
+				if(!$this->checkPermission($sender, "xperms.group.*")) break;
 				
 				if(!isset($args[1]))
 				{
@@ -179,6 +181,8 @@ class Commands implements CommandExecutor
 			
 			case "user":
 			
+				if(!$this->checkPermission($sender, "xperms.user.*")) break;
+			
 				if(!isset($args[1]))
 				{
 					$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms user <info / setgroup / setperm / unsetperm>");
@@ -311,6 +315,8 @@ class Commands implements CommandExecutor
 						$user = $this->plugin->getUser($player->getName());
 								
 						$user->addUserPermission($level, $permission);
+						
+						$this->plugin->setPermissions($level, $player);
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Added the permission to " . $player->getName() . " successfully.");
 							
@@ -351,6 +357,8 @@ class Commands implements CommandExecutor
 						$user = $this->plugin->getUser($player->getName());
 								
 						$user->removeUserPermission($level, $permission);
+						
+						$this->plugin->setPermissions($level, $player);
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Removed the permission from " . $player->getName() . " successfully.");
 								
