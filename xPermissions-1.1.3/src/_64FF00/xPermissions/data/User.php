@@ -29,11 +29,6 @@ class User
 		$temp_config["worlds"][$level->getName()]["permissions"][] = $permission;
 		
 		$this->setUserData($temp_config);
-		
-		if($this->player instanceof Player)
-		{		
-			$this->plugin->setPermissions($level, $this->player);
-		}
 	}
 	
 	public function getPlayer()
@@ -102,11 +97,6 @@ class User
 		$temp_config["worlds"][$level->getName()]["permissions"] = array_diff($permissions, [$permission]);
 		
 		$this->setUserData($temp_config);
-		
-		if($this->player instanceof Player)
-		{		
-			$this->plugin->setPermissions($level, $this->player);
-		}
 		
 		return true;
 	}

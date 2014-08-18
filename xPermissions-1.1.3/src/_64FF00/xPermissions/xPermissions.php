@@ -223,11 +223,6 @@ class xPermissions extends PluginBase
 		$user = $this->getUser($player->getName());
 		
 		$user->setUserGroup($level, $group);
-		
-		if($player instanceof Player)
-		{
-			$this->setPermissions($level, $player);
-		}
 	}
 	
 	public function setGroupsData($temp_config)

@@ -268,6 +268,11 @@ class Commands implements CommandExecutor
 						}
 								
 						$this->plugin->setGroup($level, $group, $player);
+						
+						if($player instanceof Player)
+						{
+							$this->plugin->setPermissions($level, $player);
+						}
 								
 						$message = str_replace("{GROUP}", strtolower($group->getName()), $this->plugin->getConfiguration()->getMSGonGroupChange());
 										
@@ -315,6 +320,11 @@ class Commands implements CommandExecutor
 						$user = $this->plugin->getUser($player->getName());
 								
 						$user->addUserPermission($level, $permission);
+						
+						if($player instanceof Player)
+						{
+							$this->plugin->setPermissions($level, $player);
+						}
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Added the permission to " . $player->getName() . " successfully.");
 							
@@ -355,6 +365,11 @@ class Commands implements CommandExecutor
 						$user = $this->plugin->getUser($player->getName());
 								
 						$user->removeUserPermission($level, $permission);
+						
+						if($player instanceof Player)
+						{
+							$this->plugin->setPermissions($level, $player);
+						}
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Removed the permission from " . $player->getName() . " successfully.");
 								
