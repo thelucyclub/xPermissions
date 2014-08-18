@@ -165,7 +165,7 @@ class Commands implements CommandExecutor
 			
 				if(!$this->checkPermission($sender, "xperms.info")) break;
 				
-				$sender->sendMessage(TextFormat::GREEN . "[xPermissions] This server is using xPermissions v" . $this->plugin->getDescription()->getVersion() . " by " . $this->plugin->getDescription()->getAuthors()[0] . "!");
+				$sender->sendMessage(TextFormat::GREEN . "[xPermissions] <-- xPermissions v" . $this->plugin->getDescription()->getVersion() . " by " . $this->plugin->getDescription()->getAuthors()[0] . "! -->");
 
 				break;	
 			
