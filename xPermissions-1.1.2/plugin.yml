@@ -17,6 +17,8 @@ permissions:
     description: "Allows you to break and place blocks."
    xperms.group.*:
     children:
+     xperms.group.help:
+      description: "Allows you to see usage of the plugin."
      xperms.group.list:
       description: "Allows you to see a list of all groups."
      xperms.group.setperm:
@@ -31,6 +33,8 @@ permissions:
     description: "Allows you to reload the config files."
    xperms.user.*:
     children:
+     xperms.user.help:
+      description: "Allows you to see usage of the plugin."
      xperms.user.info:
       description: "Allows you to see info of a user."
      xperms.user.setgroup:

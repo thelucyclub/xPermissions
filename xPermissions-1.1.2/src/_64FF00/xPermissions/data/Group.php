@@ -22,7 +22,9 @@ class Group
 	{
 		$temp_config = $this->getWorldLoadedData($level);
 		
-		array_push($temp_config[$this->groupName]["worlds"][$level->getName()]["permissions"], $permission);
+		$permissions = $temp_config[$this->groupName]["worlds"][$level->getName()]["permissions"];
+		
+		$permissions[] = $permission;
 		
 		$this->plugin->setGroupsData($temp_config);
 	}
@@ -115,9 +117,11 @@ class Group
 	{
 		$temp_config = $this->getWorldLoadedData($level);
 		
-		if(!isset($temp_config[$this->groupName]["worlds"][$level->getName()]["permissions"][$permission])) return false;
+		$permissions = $temp_config[$this->groupName]["worlds"][$level->getName()]["permissions"];
 		
-		unset($temp_config[$this->groupName]["worlds"][$level->getName()]["permissions"][$permission]);
+		if(!isset($permissions) || !in_array($permission, $permissions)) return false;
+		
+		$temp_config[$this->groupName]["worlds"][$level->getName()]["permissions"] = array_diff($permissions, [$permission]);
 		
 		$this->plugin->setGroupsData($temp_config);
 		

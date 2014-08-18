@@ -26,9 +26,14 @@ class User
 	{
 		$temp_config = $this->getWorldLoadedData($level);
 		
-		array_push($temp_config["worlds"][$level->getName()]["permissions"], $permission);
+		$temp_config["worlds"][$level->getName()]["permissions"][] = $permission;
 		
 		$this->setUserData($temp_config);
+		
+		if($this->player instanceof Player)
+		{		
+			$this->plugin->setPermissions($level, $this->player);
+		}
 	}
 	
 	public function getPlayer()
@@ -90,12 +95,19 @@ class User
 	{
 		$temp_config = $this->getWorldLoadedData($level);
 		
-		if(!isset($temp_config["worlds"][$level->getName()]["permissions"][$permission])) return false;
+		$permissions = $temp_config["worlds"][$level->getName()]["permissions"];
 		
-		unset($temp_config["worlds"][$level->getName()]["permissions"][$permission]);
-			
+		if(!isset($permissions) || !in_array($permission, $permissions)) return false;
+		
+		$temp_config["worlds"][$level->getName()]["permissions"] = array_diff($permissions, [$permission]);
+		
 		$this->setUserData($temp_config);
-			
+		
+		if($this->player instanceof Player)
+		{		
+			$this->plugin->setPermissions($level, $this->player);
+		}
+		
 		return true;
 	}
 	
