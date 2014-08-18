@@ -15,15 +15,6 @@ class Configuration
 		$this->loadConfiguration();
 	}
 	
-	/*
-	
-	public function isExFeaturesEnabled()
-	{
-		return $this->config->get("enable-experimental-features");
-	}
-	
-	*/
-	
 	public function getChatFormat()
 	{
 		return $this->config->get("chat-format");
@@ -37,11 +28,6 @@ class Configuration
 	public function getMSGonIBuildPerm()
 	{
 		return $this->config->get("message-on-insufficient-build-permission");
-	}
-	
-	public function getMSGonIPerms()
-	{
-		return $this->config->get("message-on-insufficient-permissions");
 	}
 	
 	public function isFormatterEnabled()
@@ -67,15 +53,6 @@ class Configuration
 
 		$this->config = $this->plugin->getConfig();
 		
-		/*
-		
-		if(!$this->config->get("enable-experimental-features"))
-		{
-			$this->config->set("enable-experimental-features", true);
-		}
-		
-		*/
-		
 		if(!$this->config->get("chat-format"))
 		{
 			$this->config->set("chat-format", "<{PREFIX} {USER_NAME}> {MESSAGE}");
@@ -98,11 +75,6 @@ class Configuration
 		if(!$this->config->get("message-on-insufficient-build-permission"))
 		{
 			$this->config->set("message-on-insufficient-build-permission", "You don't have permission to build here.");
-		}
-
-		if(!$this->config->get("message-on-insufficient-permissions"))
-		{
-			$this->config->set("message-on-insufficient-permissions", "You don't have permission to do that.");
 		}
 
 		if(!$this->config->get("message-on-group-change"))

@@ -385,12 +385,11 @@ class Commands implements CommandExecutor
 	{
 		if(!$sender->hasPermission($permission))
 		{
-			$sender->sendMessage(TextFormat::RED . $this->plugin->getConfiguration()->getMSGonIPerms());
+			$sender->sendMessage(TextFormat::RED . "You don't have permission to do that.");
 
 			return false;
 		}
 
 		return true;
 	}
-	
 }
