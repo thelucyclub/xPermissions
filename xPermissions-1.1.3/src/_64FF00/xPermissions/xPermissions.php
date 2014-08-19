@@ -106,22 +106,21 @@ class xPermissions extends PluginBase
 		
 		$group = $this->getUser($player->getName())->getUserGroup($player->getLevel());
 		
-		$prefix = $group->getGroupPrefix();	
+		$prefix = $group->getGroupPrefix();
 		$suffix = $group->getGroupSuffix();
 		
-		$format = str_replace("{USER_NAME}", $player->getName(), $format);
-		
-		$format = str_replace("{MESSAGE}", $message, $format);
-		
-		if($prefix != null)
+		if($format == null || $prefix == null || $suffix == null)
 		{
-			$format = str_replace("{PREFIX}", $prefix, $format);
-		}
-		else if($suffix != null)
-		{
-			$format = str_replace("{SUFFIX}", $suffix, $format);
+			$this->getLogger()->error("Invalid chat-format given, using the default one.");
+		
+			return null;
 		}
 		
+		$format = str_replace("{USER_NAME}", $player->getName(), $format);	
+		$format = str_replace("{MESSAGE}", $message, $format);	
+		$format = str_replace("{PREFIX}", $prefix, $format);		
+		$format = str_replace("{SUFFIX}", $suffix, $format);
+			
 		return $format;
 	}
 	

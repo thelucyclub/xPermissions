@@ -67,7 +67,7 @@ class xListener implements Listener
 		
 		$config_node = $this->plugin->getConfiguration()->isFormatterEnabled();
 		
-		if(isset($config_node) and $config_node === true)
+		if(isset($config_node) and $config_node === true and $format != null)
 		{
 			$event->setFormat($format);
 		}
