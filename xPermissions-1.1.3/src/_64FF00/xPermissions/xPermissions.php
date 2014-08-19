@@ -47,31 +47,6 @@ class xPermissions extends PluginBase
 			$this->setGroupsData($temp_config);
 		}
 	}
-	
-	public function getFormattedMessage(Player $player, $message)
-	{
-		$format = $this->getConfiguration()->getChatFormat();
-		
-		$group = $this->getUser($player->getName())->getUserGroup($player->getLevel());
-		
-		$prefix = $group->getGroupPrefix();	
-		$suffix = $group->getGroupSuffix();
-		
-		$format = str_replace("{USER_NAME}", $player->getName(), $format);
-		
-		$format = str_replace("{MESSAGE}", $message, $format);
-		
-		if($prefix != null)
-		{
-			$format = str_replace("{PREFIX}", $prefix, $format);
-		}
-		else if($suffix != null)
-		{
-			$format = str_replace("{SUFFIX}", $suffix, $format);
-		}
-		
-		return $format;
-	}
 
 	public function getAllGroups()
 	{
@@ -123,6 +98,31 @@ class xPermissions extends PluginBase
 	public function getFixedPerm($node)
 	{
 		return $this->isNegativePerm($node) ? substr($node, 1) : $node;
+	}
+	
+	public function getFormattedMessage(Player $player, $message)
+	{
+		$format = $this->getConfiguration()->getChatFormat();
+		
+		$group = $this->getUser($player->getName())->getUserGroup($player->getLevel());
+		
+		$prefix = $group->getGroupPrefix();	
+		$suffix = $group->getGroupSuffix();
+		
+		$format = str_replace("{USER_NAME}", $player->getName(), $format);
+		
+		$format = str_replace("{MESSAGE}", $message, $format);
+		
+		if($prefix != null)
+		{
+			$format = str_replace("{PREFIX}", $prefix, $format);
+		}
+		else if($suffix != null)
+		{
+			$format = str_replace("{SUFFIX}", $suffix, $format);
+		}
+		
+		return $format;
 	}
 	
 	public function getGroup($groupName)

@@ -43,7 +43,18 @@ class User
 	
 	public function getUserGroup(Level $level)
 	{
-		return new Group($this->plugin, $this->getWorldLoadedData($level)["worlds"][$level->getName()]["group"]);
+		$groupName = $this->getWorldLoadedData($level)["worlds"][$level->getName()]["group"];
+		
+		$userGroup = $this->plugin->getGroup($groupName);
+		
+		if($userGroup == null)
+		{
+			$userGroup = $this->plugin->getDefaultGroup();
+			
+			$this->setUserGroup($level, $userGroup);
+		}
+		
+		return $userGroup;
 	}
 	
 	public function getUserPermissions(Level $level)
