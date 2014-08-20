@@ -15,7 +15,6 @@ Default:
      - pocketmine.command.me
      - pocketmine.command.tell
      - pocketmine.command.version
-     - xperms.build
      - xperms.info
 Mod:
   alias: 'm'

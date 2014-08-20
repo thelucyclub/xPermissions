@@ -23,30 +23,6 @@ class xListener implements Listener
 		$this->plugin = $plugin;
 	}
 
-	public function onBlockBreak(BlockBreakEvent $event)
-	{
-		$player = $event->getPlayer();
-		
-		if(!$player->hasPermission("xperms.build"))
-		{
-			$player->sendMessage(TextFormat::RED . $this->plugin->getConfiguration()->getMSGonIBuildPerm());
-			
-			$event->setCancelled(true);
-		}
-	}
-
-	public function onBlockPlace(BlockPlaceEvent $event)
-	{
-		$player = $event->getPlayer();
-		
-		if(!$player->hasPermission("xperms.build"))
-		{
-			$player->sendMessage(TextFormat::RED . $this->plugin->getConfiguration()->getMSGonIBuildPerm());
-			
-			$event->setCancelled(true);
-		}
-	}
-
 	public function onLevelChange(EntityLevelChangeEvent $event)
 	{		
 		$player = $event->getEntity();
@@ -67,7 +43,7 @@ class xListener implements Listener
 		
 		$config_node = $this->plugin->getConfiguration()->isFormatterEnabled();
 		
-		if(isset($config_node) and $config_node === true and $format != null)
+		if(isset($config_node) and $config_node === true)
 		{
 			$event->setFormat($format);
 		}

@@ -25,11 +25,6 @@ class Configuration
 		return $this->config->get("message-on-group-change");
 	}
 	
-	public function getMSGonIBuildPerm()
-	{
-		return $this->config->get("message-on-insufficient-build-permission");
-	}
-	
 	public function isFormatterEnabled()
 	{
 		return $this->config->get("enable-formatter");
@@ -71,11 +66,6 @@ class Configuration
 		}
 		
 		*/
-
-		if(!$this->config->get("message-on-insufficient-build-permission"))
-		{
-			$this->config->set("message-on-insufficient-build-permission", "You don't have permission to build here.");
-		}
 
 		if(!$this->config->get("message-on-group-change"))
 		{
