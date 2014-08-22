@@ -30,7 +30,6 @@
  
 ## Permissions
 
-- xperms.build
 - xperms.group.*
  * xperms.group.list
  * xperms.group.setperm
