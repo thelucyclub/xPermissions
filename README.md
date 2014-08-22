@@ -31,6 +31,7 @@
 ## Permissions
 
 - xperms.group.*
+ * xperms.group.help
  * xperms.group.list
  * xperms.group.setperm
  * xperms.group.unsetperm
@@ -38,6 +39,7 @@
 - xperms.info
 - xperms.reload
 - xperms.user.*
+ * xperms.user.help
  * xperms.user.info
  * xperms.user.setgroup
  * xperms.user.setperm
