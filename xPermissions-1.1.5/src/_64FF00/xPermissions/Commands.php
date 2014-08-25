@@ -101,7 +101,7 @@ class Commands implements CommandExecutor
 							break;
 						}
 								
-						$group->addGroupPermission($level, $permission);
+						$group->addGroupPermission($permission, $level->getName());
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Added the permission to the group successfully.");
 							
@@ -146,7 +146,7 @@ class Commands implements CommandExecutor
 							break;
 						}
 								
-						$group->removeGroupPermission($level, $permission);
+						$group->removeGroupPermission($permission, $level->getName());
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Removed the permission from the group successfully.");
 								
@@ -221,9 +221,9 @@ class Commands implements CommandExecutor
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] ----- Information for " . $player->getName() . " -----");		
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Username: " . $player->getName() . " [" . $status . "]");					
-						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Group: " . $user->getUserGroup($level)->getName());
+						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Group: " . $user->getUserGroup($level->getName())->getName());
 								
-						foreach($user->getUserPermissions($level) as $permission)
+						foreach($user->getUserPermissions($level->getName()) as $permission)
 						{
 							$output .= TextFormat::GREEN . "[xPermissions] - " . $permission . "\n";
 						}
@@ -267,11 +267,11 @@ class Commands implements CommandExecutor
 							break;
 						}
 								
-						$this->plugin->setGroup($level, $group, $player);
+						$this->plugin->setGroup($player, $group, $level->getName());
 						
 						if($player instanceof Player)
 						{
-							$this->plugin->setPermissions($level, $player);
+							$this->plugin->setPermissions($player, $level->getName());
 						}
 								
 						$message = str_replace("{GROUP}", strtolower($group->getName()), $this->plugin->getConfiguration()->getMSGonGroupChange());
@@ -319,11 +319,11 @@ class Commands implements CommandExecutor
 						
 						$user = $this->plugin->getUser($player->getName());
 								
-						$user->addUserPermission($level, $permission);
+						$user->addUserPermission($permission, $level);
 						
 						if($player instanceof Player)
 						{
-							$this->plugin->setPermissions($level, $player);
+							$this->plugin->setPermissions($player, $level->getName());
 						}
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Added the permission to " . $player->getName() . " successfully.");
@@ -364,11 +364,11 @@ class Commands implements CommandExecutor
 						
 						$user = $this->plugin->getUser($player->getName());
 								
-						$user->removeUserPermission($level, $permission);
+						$user->removeUserPermission($permission, $level->getName());
 						
 						if($player instanceof Player)
 						{
-							$this->plugin->setPermissions($level, $player);
+							$this->plugin->setPermissions($player, $level->getName());
 						}
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Removed the permission from " . $player->getName() . " successfully.");

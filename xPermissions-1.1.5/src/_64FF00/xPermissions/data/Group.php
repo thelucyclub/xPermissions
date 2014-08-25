@@ -18,11 +18,11 @@ class Group
 		$this->groupName = $groupName;
 	}
 	
-	public function addGroupPermission(Level $level, $permission)
+	public function addGroupPermission($permission, $level)
 	{
 		$temp_config = $this->getWorldLoadedData($level);
 		
-		$permissions = $temp_config[$this->groupName]["worlds"][$level->getName()]["permissions"];
+		$permissions = $temp_config[$this->groupName]["worlds"][$level]["permissions"];
 		
 		$permissions[] = $permission;
 		
@@ -39,9 +39,9 @@ class Group
 		return $this->plugin->getGroupsData()[$this->groupName];
 	}
 	
-	public function getGroupPermissions(Level $level)
+	public function getGroupPermissions($level)
 	{
-		$permissions = $this->getWorldLoadedData($level)[$this->groupName]["worlds"][$level->getName()]["permissions"];
+		$permissions = $this->getWorldLoadedData($level)[$this->groupName]["worlds"][$level]["permissions"];
 		
 		$inherited_groups = $this->getInheritedGroups();
 		
@@ -58,7 +58,7 @@ class Group
 					continue;
 				}
 				
-				$group_permissions = $group->getWorldLoadedData($level)[$group->groupName]["worlds"][$level->getName()]["permissions"];
+				$group_permissions = $group->getWorldLoadedData($level)[$group->groupName]["worlds"][$level]["permissions"];
 				
 				$permissions = array_merge($permissions, $group_permissions);
 			}
@@ -87,15 +87,15 @@ class Group
 		return $this->getGroupData()["inheritance"];
 	}
 	
-	public function getWorldLoadedData(Level $level)
+	public function getWorldLoadedData($level)
 	{
 		$temp_config = $this->plugin->getGroupsData();
 		
-		if(!isset($temp_config[$this->groupName]["worlds"][$level->getName()]))
+		if(!isset($temp_config[$this->groupName]["worlds"][$level]))
 		{
-			$this->plugin->getLogger()->warning("Permissions not set in Group " . $this->groupName . " in Level " . $level->getName() . ".");
+			$this->plugin->getLogger()->warning("Permissions not set in Group: " . $this->groupName . " in Level: " . $level . ".");
 			
-			$temp_config[$this->groupName]["worlds"][$level->getName()] = array(
+			$temp_config[$this->groupName]["worlds"][$level] = array(
 				"permissions" => array(
 				),
 			);
@@ -113,15 +113,15 @@ class Group
 		return isset($node) and $node === true;
 	}
 	
-	public function removeGroupPermission(Level $level, $permission)
+	public function removeGroupPermission($permission, $level)
 	{
 		$temp_config = $this->getWorldLoadedData($level);
 		
-		$permissions = $temp_config[$this->groupName]["worlds"][$level->getName()]["permissions"];
+		$permissions = $temp_config[$this->groupName]["worlds"][$level]["permissions"];
 		
 		if(!isset($permissions) || !in_array($permission, $permissions)) return false;
 		
-		$temp_config[$this->groupName]["worlds"][$level->getName()]["permissions"] = array_diff($permissions, [$permission]);
+		$temp_config[$this->groupName]["worlds"][$level]["permissions"] = array_diff($permissions, [$permission]);
 		
 		$this->plugin->setGroupsData($temp_config);
 		

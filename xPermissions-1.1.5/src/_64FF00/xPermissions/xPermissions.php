@@ -107,19 +107,21 @@ class xPermissions extends PluginBase
 		$format = str_replace("{USER_NAME}", $player->getName(), $format);	
 		$format = str_replace("{MESSAGE}", $message, $format);
 		
-		$group = $this->getUser($player->getName())->getUserGroup($player->getLevel());
+		$level = $player->getLevel()->getName();
+		
+		$group = $this->getUser($player->getName())->getUserGroup($level);
 		
 		$prefix = $group->getGroupPrefix();
 		
 		if($prefix == null)
-		{			
+		{	
 			$prefix = "";
 		}
 		
 		$suffix = $group->getGroupSuffix();
 		
 		if($suffix == null)
-		{
+		{		
 			$suffix = "";
 		}
 		
@@ -144,9 +146,13 @@ class xPermissions extends PluginBase
 		return $this->groups->getAll();
 	}
 	
-	public function getPermissions(Level $level, User $user)
+	public function getPermissions(User $user, $level)
 	{
-		return array_merge($user->getUserGroup($level)->getGroupPermissions($level), $user->getUserPermissions($level));
+		$group_permissions = $user->getUserGroup($level)->getGroupPermissions($level);
+		
+		$user_permissions = $user->getUserPermissions($level);
+		
+		return array_merge($group_permissions, $user_permissions);
 	}
 	
 	public function getValidPlayer($userName)
@@ -210,7 +216,7 @@ class xPermissions extends PluginBase
 		{
 			foreach($this->getServer()->getOnlinePlayers() as $player)
 			{
-				$this->setPermissions($level, $player);	
+				$this->setPermissions($player, $level->getName());	
 			}
 		}
 	}
@@ -222,11 +228,11 @@ class xPermissions extends PluginBase
 		unset($this->attachment[$player->getName()]);
 	}
 	
-	public function setGroup(Level $level, Group $group, $player)
+	public function setGroup($player, Group $group, $level)
 	{
 		$user = $this->getUser($player->getName());
 		
-		$user->setUserGroup($level, $group);
+		$user->setUserGroup($group, $level);
 	}
 	
 	public function setGroupsData($temp_config)
@@ -239,7 +245,7 @@ class xPermissions extends PluginBase
 		}
 	}
 	
-	public function setPermissions(Level $level, Player $player)
+	public function setPermissions(Player $player, $level)
 	{
 		$attachment = $this->getAttachment($player);
 		
@@ -250,7 +256,7 @@ class xPermissions extends PluginBase
 			$attachment->unsetPermission($old_perm);
 		}
 		
-		foreach($this->getPermissions($level, $user) as $new_perm)
+		foreach($this->getPermissions($user, $level) as $new_perm)
 		{
 			if(!$this->isNegativePerm($new_perm))
 			{

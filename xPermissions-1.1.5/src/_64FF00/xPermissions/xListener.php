@@ -3,8 +3,6 @@
 namespace _64FF00\xPermissions;
 
 use pocketmine\event\Listener;
-use pocketmine\event\block\BlockBreakEvent;
-use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\entity\EntityLevelChangeEvent;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerJoinEvent;
@@ -27,11 +25,11 @@ class xListener implements Listener
 	{		
 		$player = $event->getEntity();
 		
-		$level = $event->getTarget();
+		$level = $event->getTarget()->getName();
 		
 		if($player instanceof Player)
 		{
-			$this->plugin->setPermissions($level, $player);
+			$this->plugin->setPermissions($player, $level);
 		}
 	}
 	
@@ -53,7 +51,9 @@ class xListener implements Listener
 	{
 		$player = $event->getPlayer();
 		
-		$this->plugin->setPermissions($player->getLevel(), $player);
+		$level = $player->getLevel()->getName();
+		
+		$this->plugin->setPermissions($player, $level);
 	}
 
 	public function onPlayerKick(PlayerKickEvent $event)

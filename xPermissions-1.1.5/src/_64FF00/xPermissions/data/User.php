@@ -6,8 +6,6 @@ use _64FF00\xPermissions\xPermissions;
 
 use pocketmine\IPlayer;
 
-use pocketmine\level\Level;
-
 use pocketmine\utils\Config;
 
 class User
@@ -22,11 +20,11 @@ class User
 		$this->loadUserConfig();
 	}
 	
-	public function addUserPermission(Level $level, $permission)
+	public function addUserPermission($permission, $level)
 	{
 		$temp_config = $this->getWorldLoadedData($level);
 		
-		$temp_config["worlds"][$level->getName()]["permissions"][] = $permission;
+		$temp_config["worlds"][$level]["permissions"][] = $permission;
 		
 		$this->setUserData($temp_config);
 	}
@@ -41,9 +39,9 @@ class User
 		return $this->config->getAll();
 	}
 	
-	public function getUserGroup(Level $level)
+	public function getUserGroup($level)
 	{
-		$groupName = $this->getWorldLoadedData($level)["worlds"][$level->getName()]["group"];
+		$groupName = $this->getWorldLoadedData($level)["worlds"][$level]["group"];
 		
 		$userGroup = $this->plugin->getGroup($groupName);
 		
@@ -57,18 +55,18 @@ class User
 		return $userGroup;
 	}
 	
-	public function getUserPermissions(Level $level)
+	public function getUserPermissions($level)
 	{
-		return $this->getWorldLoadedData($level)["worlds"][$level->getName()]["permissions"];
+		return $this->getWorldLoadedData($level)["worlds"][$level]["permissions"];
 	}
 	
-	public function getWorldLoadedData(Level $level)
+	public function getWorldLoadedData($level)
 	{
 		$temp_config = $this->getUserData();
 		
-		if(!isset($temp_config["worlds"][$level->getName()]))
+		if(!isset($temp_config["worlds"][$level]))
 		{
-			$temp_config["worlds"][$level->getName()] = array(
+			$temp_config["worlds"][$level] = array(
 				"group" => $this->plugin->getDefaultGroup()->getName(),
 				"permissions" => array(
 				),
@@ -97,15 +95,15 @@ class User
 		}
 	}
 	
-	public function removeUserPermission(Level $level, $permission)
+	public function removeUserPermission($permission, $level)
 	{
 		$temp_config = $this->getWorldLoadedData($level);
 		
-		$permissions = $temp_config["worlds"][$level->getName()]["permissions"];
+		$permissions = $temp_config["worlds"][$level]["permissions"];
 		
 		if(!isset($permissions) || !in_array($permission, $permissions)) return false;
 		
-		$temp_config["worlds"][$level->getName()]["permissions"] = array_diff($permissions, [$permission]);
+		$temp_config["worlds"][$level]["permissions"] = array_diff($permissions, [$permission]);
 		
 		$this->setUserData($temp_config);
 		
@@ -122,11 +120,11 @@ class User
 		}
 	}
 	
-	public function setUserGroup(Level $level, Group $group)
+	public function setUserGroup(Group $group, $level)
 	{
 		$temp_config = $this->getWorldLoadedData($level);
 		
-		$temp_config["worlds"][$level->getName()]["group"] = $group->getName();
+		$temp_config["worlds"][$level]["group"] = $group->getName();
 		
 		$this->setUserData($temp_config);
 	}
