@@ -4,8 +4,6 @@ namespace _64FF00\xPermissions\data;
 
 use _64FF00\xPermissions\xPermissions;
 
-use pocketmine\level\Level;
-
 use pocketmine\utils\Config;
 
 class Group
@@ -81,7 +79,7 @@ class Group
 	{
 		return $this->getGroupData()["suffix"];
 	}
-	
+
 	public function getInheritedGroups()
 	{
 		return $this->getGroupData()["inheritance"];
@@ -108,9 +106,12 @@ class Group
 	
 	public function isDefault()
 	{
-		$node = $this->getGroupData()["default-group"];
+		if(!isset($this->getGroupData()["default-group"]))
+		{
+			return null;
+		}
 		
-		return isset($node) and $node === true;
+		return $this->getGroupData()["default-group"] === true;
 	}
 	
 	public function removeGroupPermission($permission, $level)

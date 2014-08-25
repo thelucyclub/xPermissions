@@ -36,15 +36,41 @@ class xPermissions extends PluginBase
 	
 	public function fixGroupsData()
 	{
+		if($this->getDefaultGroup() == null)
+		{
+			$this->getLogger()->critical("Failed to load default group in groups.yml. Please check your groups.yml again.");
+		}
+		
 		foreach($this->getAllGroups() as $group)
 		{
-			$temp_config = $this->getGroupsData();
-				
-			if(!isset($temp_config[$group->getName()]["alias"])) $temp_config[$group->getName()]["alias"] = "";
-			if(!isset($temp_config[$group->getName()]["prefix"])) $temp_config[$group->getName()]["prefix"] = "";
-			if(!isset($temp_config[$group->getName()]["suffix"])) $temp_config[$group->getName()]["suffix"] = "";
-				
-			$this->setGroupsData($temp_config);
+			$groupsData = $this->getGroupsData();
+			
+			if(!isset($groupsData[$group->getName()]["alias"])) 
+			{	
+				$groupsData[$group->getName()]["alias"] = "";
+			}
+			
+			if(!isset($groupsData[$group->getName()]["prefix"])) 
+			{
+				$groupsData[$group->getName()]["prefix"] = "";
+			}
+			
+			if(!isset($groupsData[$group->getName()]["suffix"])) 
+			{
+				$groupsData[$group->getName()]["suffix"] = "";
+			}
+			
+			if(!isset($groupsData[$group->getName()]["inheritance"])) 
+			{	
+				$groupsData[$group->getName()]["inheritance"] = [];
+			}
+			
+			if(!isset($groupsData[$group->getName()]["worlds"]))
+			{			
+				$groupsData[$group->getName()]["worlds"] = [];
+			}
+			
+			$this->setGroupsData($groupsData);
 		}
 	}
 
