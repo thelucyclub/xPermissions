@@ -24,9 +24,11 @@ class xPermissions extends PluginBase
 	private $config, $groups;
 	
 	public function onEnable()
-	{		
-		$this->loadAll();
+	{
+		$this->config = new Configuration($this);
 		
+		$this->loadAll();
+
 		$this->getLogger()->info("Loaded all plugin configurations.");
 		
 		$this->getCommand("xperms")->setExecutor(new Commands($this));
@@ -101,6 +103,8 @@ class xPermissions extends PluginBase
 		return $this->config;
 	}
 	
+	/*
+	
 	public function getCustomConfig($fileName)
 	{
 		if(file_exists($this->getDataFolder() . $fileName))
@@ -110,6 +114,8 @@ class xPermissions extends PluginBase
 		
 		return null;
 	}
+	
+	*/
 	
 	public function getDefaultGroup()
 	{
@@ -212,19 +218,6 @@ class xPermissions extends PluginBase
 		return preg_match($pattern, null) === false;
 	}
 	
-	public function loadAll()
-	{
-		@mkdir($this->getDataFolder() . "players/", 0777, true);
-		
-		$this->config = new Configuration($this);
-		
-		$this->loadGroupsConfig();
-		
-		$this->fixGroupsData();
-		
-		$this->recalculatePermissions();
-	}
-	
 	public function loadGroupsConfig()
 	{
 		if(!(file_exists($this->getDataFolder() . "groups.yml")))
@@ -245,6 +238,19 @@ class xPermissions extends PluginBase
 				$this->setPermissions($player, $level->getName());	
 			}
 		}
+	}
+	
+	public function loadAll()
+	{
+		@mkdir($this->getDataFolder() . "players/", 0777, true);
+		
+		$this->config->reloadConfig();
+		
+		$this->loadGroupsConfig();
+		
+		$this->fixGroupsData();
+		
+		$this->recalculatePermissions();
 	}
 	
 	public function removeAttachment(Player $player)
@@ -283,7 +289,7 @@ class xPermissions extends PluginBase
 		}
 		
 		foreach($this->getPermissions($user, $level) as $new_perm)
-		{
+		{			
 			if(!$this->isNegativePerm($new_perm))
 			{
 				$attachment->setPermission($new_perm, true);
