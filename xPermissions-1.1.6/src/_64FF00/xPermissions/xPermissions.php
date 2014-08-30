@@ -93,13 +93,7 @@ class xPermissions extends PluginBase
 		if(!isset($this->attachments[$player->getName()]))
 		{
 			$this->attachments[$player->getName()] = $player->addAttachment($this);
-			
-			echo "NEW ATTACHMENT";
-			
-			return $this->attachments[$player->getName()];
 		}
-		
-		echo "OLD ATTACHMENT";
 		
 		return $this->attachments[$player->getName()];
 	}
