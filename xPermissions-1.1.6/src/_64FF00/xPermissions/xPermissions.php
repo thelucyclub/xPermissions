@@ -93,7 +93,13 @@ class xPermissions extends PluginBase
 		if(!isset($this->attachments[$player->getName()]))
 		{
 			$this->attachments[$player->getName()] = $player->addAttachment($this);
+			
+			echo "NEW ATTACHMENT";
+			
+			return $this->attachments[$player->getName()];
 		}
+		
+		echo "OLD ATTACHMENT";
 		
 		return $this->attachments[$player->getName()];
 	}
@@ -220,10 +226,7 @@ class xPermissions extends PluginBase
 	
 	public function loadGroupsConfig()
 	{
-		if(!(file_exists($this->getDataFolder() . "groups.yml")))
-		{
-			$this->saveResource("groups.yml");
-		}
+		$this->saveResource("groups.yml");
 		
 		$this->groups = new Config($this->getDataFolder() . "groups.yml", Config::YAML, array(
 		));
@@ -257,7 +260,7 @@ class xPermissions extends PluginBase
 	{
 		$player->removeAttachment($this->getAttachment($player));
 		
-		unset($this->attachment[$player->getName()]);
+		unset($this->attachments[$player->getName()]);
 	}
 	
 	public function setGroup($player, Group $group, $level)
@@ -301,7 +304,5 @@ class xPermissions extends PluginBase
 				$attachment->setPermission($fixed_perm, false);
 			}
 		}
-			
-		$player->recalculatePermissions();
 	}
 }

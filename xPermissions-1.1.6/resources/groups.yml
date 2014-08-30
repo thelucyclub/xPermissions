@@ -8,13 +8,9 @@ Default:
   worlds:
    world:
     permissions:
-     - pocketmine.broadcast.user
-     - pocketmine.command.help
-     - pocketmine.command.kill
+     - -pocketmine.command.kill
      - pocketmine.command.list
-     - pocketmine.command.me
-     - pocketmine.command.tell
-     - pocketmine.command.version
+     - -pocketmine.command.me
      - xperms.info
 Mod:
   alias: 'm'
@@ -29,7 +25,6 @@ Mod:
     - pocketmine.command.gamemode
     - pocketmine.command.give
     - pocketmine.command.kick
-    - pocketmine.command.plugins
     - pocketmine.command.say
     - pocketmine.command.teleport
     - pocketmine.command.time
@@ -44,7 +39,6 @@ Admin:
    world:
     permissions:
     - pocketmine.command.ban
-    - pocketmine.command.status
     - pocketmine.command.unban
     - pocketmine.command.whitelist
 Owner:
