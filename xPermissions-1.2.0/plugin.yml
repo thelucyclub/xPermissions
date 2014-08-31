@@ -15,10 +15,14 @@ permissions:
   children:
    xperms.group.*:
     children:
+     xperms.group.create:
+      description: "Allows you create a new group."
      xperms.group.help:
       description: "Allows you to see usage of the plugin."
      xperms.group.list:
       description: "Allows you to see a list of all groups."
+     xperms.group.remove:
+      description: "Allows you remove some groups."
      xperms.group.setperm:
       description: "Allows you to set permissions for a group."
      xperms.group.unsetperm:

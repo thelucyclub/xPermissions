@@ -41,13 +41,38 @@ class Commands implements CommandExecutor
 				
 				if(!isset($args[1]))
 				{
-					$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms group <list / setperm / unsetperm>");
+					$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms group <create / list / remove / setperm / unsetperm>");
 
 					break;
 				}
 						
 				switch($args[1])
 				{
+					case "cr":
+					case "create":
+						
+						if(!$this->checkPermission($sender, "xperms.group.create")) break;
+						
+						if(!isset($args[2]) || count($args) > 3)
+						{
+							$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms group create <GROUP_NAME>");
+
+							break;
+						}
+						
+						if($this->plugin->getGroup($args[2]) != null)
+						{
+							$sender->sendMessage(TextFormat::RED . "[xPermissions] [ERROR] Group " . $args[2] . " already exists.");
+							
+							break;
+						}
+						
+						$this->plugin->createGroup($args[2]);
+						
+						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Added " . $args[2] . " to the group list successfully.");
+						
+						break;
+						
 					case "ls":
 					case "list":
 							
@@ -60,6 +85,31 @@ class Commands implements CommandExecutor
 								
 						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] List of all groups: " . substr($output, 0, -2));
 								
+						break;
+						
+					case "rm":
+					case "remove":
+						
+						if(!$this->checkPermission($sender, "xperms.group.remove")) break;
+						
+						if(!isset($args[2]) || count($args) > 3)
+						{
+							$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms group remove <GROUP_NAME>");
+
+							break;
+						}
+						
+						if($this->plugin->getGroup($args[2]) == null)
+						{
+							$sender->sendMessage(TextFormat::RED . "[xPermissions] [ERROR] Group " . $args[2] . " doesn't exist.");
+							
+							break;
+						}
+						
+						$this->plugin->removeGroup($args[2]);
+						
+						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Removed " . $args[2] . " from the group list successfully.");
+						
 						break;
 					
 					case "sp":
@@ -154,7 +204,7 @@ class Commands implements CommandExecutor
 								
 					default:
 						
-						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms group <list / setperm / unsetperm>");
+						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms group <create / list / remove / setperm / unsetperm>");
 								
 						break;					
 				}

@@ -36,6 +36,24 @@ class xPermissions extends PluginBase
 		$this->getServer()->getPluginManager()->registerEvents(new xListener($this), $this);
 	}
 	
+	public function createGroup($groupName)
+	{
+		$groupsData = $this->getGroupsData();
+		
+		if(!isset($groupsData[$groupName]))
+		{
+			$groupsData[$groupName] = array(
+				"alias" => "",
+				"prefix" => "[" . $groupName . "]",
+				"suffix" => "",
+				"inheritance" => [],
+				"worlds" => []
+			);
+		}
+		
+		$this->setGroupsData($groupsData);
+	}
+	
 	public function fixGroupsData()
 	{
 		if($this->getDefaultGroup() == null)
@@ -255,6 +273,15 @@ class xPermissions extends PluginBase
 		$player->removeAttachment($this->getAttachment($player));
 		
 		unset($this->attachments[$player->getName()]);
+	}
+	
+	public function removeGroup($groupName)
+	{
+		$groupsData = $this->getGroupsData();
+		
+		unset($groupsData[$groupName]);
+		
+		$this->setGroupsData($groupsData);
 	}
 	
 	public function setGroup($player, Group $group, $level)

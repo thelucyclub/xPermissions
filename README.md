@@ -17,7 +17,9 @@
 
 | Command | Parameters |
 | ------- | ---------- |
+| /xperms group create | [GROUP_NAME] |
 | /xperms group list | ... |
+| /xperms group remove | [GROUP_NAME] |
 | /xperms group setperm | [GROUP_NAME], [PERMISSION], (LEVEL_NAME) |
 | /xperms group unsetperm | [GROUP_NAME], [PERMISSION], (LEVEL_NAME) |
 | /xperms help | ... | 
@@ -31,8 +33,10 @@
 ## Permissions
 
 - xperms.group.*
+ * xperms.group.create
  * xperms.group.help
  * xperms.group.list
+ * xperms.group.remove
  * xperms.group.setperm
  * xperms.group.unsetperm
 - xperms.help
