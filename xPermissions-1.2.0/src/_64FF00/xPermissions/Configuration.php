@@ -27,19 +27,17 @@ class Configuration
 			$this->config->set("enable-formatter", true);
 		}
 		
-		/*
-		
 		if(!$this->config->get("override-op-permissions"))
 		{
-			$this->config->set("override-op-permissions", true);
+			$this->config->set("override-op-permissions", false);
 		}
-		
-		*/
 
 		if(!$this->config->get("message-on-group-change"))
 		{
 			$this->config->set("message-on-group-change", "Ta-da! Your group has been changed into... a / an {GROUP}!");
 		}
+		
+		$this->plugin->saveConfig();
 	}
 	
 	public function getChatFormat()
@@ -56,15 +54,11 @@ class Configuration
 	{
 		return $this->config->get("enable-formatter");
 	}
-	
-	/*
-	
+
 	public function isOpOverrideEnabled()
 	{
 		return $this->config->get("override-op-permissions");
 	}
-	
-	*/
 	
 	public function loadConfig()
 	{

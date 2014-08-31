@@ -53,7 +53,10 @@ class xListener implements Listener
 		
 		$level = $player->getLevel()->getName();
 		
-		$this->plugin->setPermissions($player, $level);
+		if(!$player->isOp() and $this->plugin->getConfiguration()->isOpOverrideEnabled())
+		{
+			$this->plugin->setPermissions($player, $level);
+		}
 	}
 
 	public function onPlayerKick(PlayerKickEvent $event)
