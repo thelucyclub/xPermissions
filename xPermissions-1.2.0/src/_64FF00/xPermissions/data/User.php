@@ -49,7 +49,7 @@ class User
 		{
 			$userGroup = $this->plugin->getDefaultGroup();
 			
-			$this->setUserGroup($level, $userGroup);
+			$this->setUserGroup($userGroup, $level);
 		}
 		
 		return $userGroup;
