@@ -11,6 +11,7 @@ Default:
      - -pocketmine.command.kill
      - pocketmine.command.list
      - -pocketmine.command.me
+     - xperms.build
      - xperms.info
 Mod:
   alias: 'm'

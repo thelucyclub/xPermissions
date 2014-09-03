@@ -3,6 +3,8 @@
 namespace _64FF00\xPermissions;
 
 use pocketmine\event\Listener;
+use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\entity\EntityLevelChangeEvent;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerJoinEvent;
@@ -19,6 +21,30 @@ class xListener implements Listener
 	public function __construct(xPermissions $plugin)
 	{
 		$this->plugin = $plugin;
+	}
+	
+	public function onBlockBreak(BlockBreakEvent $event)
+	{
+		$player = $event->getPlayer();
+		
+		if(!$player->hasPermission("xperms.build"))
+		{
+			$player->sendMessage(TextFormat::RED . $this->plugin->getConfiguration()->getMSGonIBuildPerm());
+			
+			$event->setCancelled(true);
+		}
+	}
+
+	public function onBlockPlace(BlockPlaceEvent $event)
+	{
+		$player = $event->getPlayer();
+		
+		if(!$player->hasPermission("xperms.build"))
+		{
+			$player->sendMessage(TextFormat::RED . $this->plugin->getConfiguration()->getMSGonIBuildPerm());
+			
+			$event->setCancelled(true);
+		}
 	}
 
 	public function onLevelChange(EntityLevelChangeEvent $event)

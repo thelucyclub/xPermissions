@@ -154,6 +154,7 @@ class xPermissions extends PluginBase
 	{
 		$format = $this->getConfiguration()->getChatFormat();
 		
+		$format = str_replace("{WORLD_NAME}", $player->getLevel()->getName(), $format);
 		$format = str_replace("{USER_NAME}", $player->getName(), $format);	
 		$format = str_replace("{MESSAGE}", $message, $format);
 		
