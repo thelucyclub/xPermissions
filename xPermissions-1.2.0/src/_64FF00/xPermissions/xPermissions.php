@@ -58,7 +58,9 @@ class xPermissions extends PluginBase
 	{
 		if($this->getDefaultGroup() == null)
 		{
-			$this->getLogger()->critical("Failed to load default group in groups.yml. Please check your groups.yml again.");
+			$this->getLogger()->critical("Failed to load default group in groups.yml, creating a new one...");
+			
+			$this->setDefaultGroup("Default");
 		}
 		
 		foreach($this->getAllGroups() as $group)
@@ -83,6 +85,16 @@ class xPermissions extends PluginBase
 			if(!isset($groupsData[$group->getName()]["inheritance"])) 
 			{	
 				$groupsData[$group->getName()]["inheritance"] = [];
+			}
+			else
+			{
+				foreach($groupsData[$group->getName()]["inheritance"] as $groupName)
+				{
+					if($this->getGroup($groupName) == null)
+					{
+						$this->getLogger()->warning("Group " . $groupName . " not found in " . $group->getName() . "'s 'inheritance' section.");
+					}
+				}
 			}
 			
 			if(!isset($groupsData[$group->getName()]["worlds"]))
@@ -285,6 +297,17 @@ class xPermissions extends PluginBase
 		$this->setGroupsData($groupsData);
 	}
 	
+	public function setDefaultGroup($groupName)
+	{
+		$groupsData = $this->getGroupsData();
+		
+		if(!isset($groupsData[$groupName])) $this->createGroup($groupName);
+
+		$groupsData[$groupName]["default-group"] = true;
+		
+		$this->setGroupsData($groupsData);
+	}
+	
 	public function setGroup($player, Group $group, $level)
 	{
 		$user = $this->getUser($player->getName());
@@ -300,6 +323,8 @@ class xPermissions extends PluginBase
 			
 			$this->groups->save();
 		}
+		
+		$this->loadGroupsConfig();
 	}
 	
 	public function setPermissions(Player $player, $level)
