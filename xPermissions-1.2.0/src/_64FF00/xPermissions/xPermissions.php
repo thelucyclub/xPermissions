@@ -68,22 +68,30 @@ class xPermissions extends PluginBase
 			$groupsData = $this->getGroupsData();
 			
 			if(!isset($groupsData[$group->getName()]["alias"])) 
-			{	
+			{
+				$this->getLogger()->warning("Corrupted 'alias' section found in " . $group->getName() . ". Setting it to default value.");
+				
 				$groupsData[$group->getName()]["alias"] = "";
 			}
 			
 			if(!isset($groupsData[$group->getName()]["prefix"])) 
 			{
+				$this->getLogger()->warning("Corrupted 'prefix' section found in " . $group->getName() . ". Setting it to default value.");
+				
 				$groupsData[$group->getName()]["prefix"] = "";
 			}
 			
 			if(!isset($groupsData[$group->getName()]["suffix"])) 
 			{
+				$this->getLogger()->warning("Corrupted 'suffix' section found in " . $group->getName() . ". Setting it to default value.");
+				
 				$groupsData[$group->getName()]["suffix"] = "";
 			}
 			
 			if(!isset($groupsData[$group->getName()]["inheritance"])) 
 			{	
+				$this->getLogger()->warning("Corrupted 'inheritance' section found in " . $group->getName() . ". Setting it to default value.");
+				
 				$groupsData[$group->getName()]["inheritance"] = [];
 			}
 			else
@@ -98,7 +106,9 @@ class xPermissions extends PluginBase
 			}
 			
 			if(!isset($groupsData[$group->getName()]["worlds"]))
-			{			
+			{
+				$this->getLogger()->warning("Corrupted 'worlds' section found in " . $group->getName() . ". Setting it to default value.");
+				
 				$groupsData[$group->getName()]["worlds"] = [];
 			}
 			

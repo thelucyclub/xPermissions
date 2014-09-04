@@ -79,7 +79,9 @@ class xListener implements Listener
 		
 		$level = $player->getLevel()->getName();
 		
-		if(!$player->isOp() and $this->plugin->getConfiguration()->isOpOverrideEnabled())
+		$this->plugin->removeAttachment($player);
+
+		if(!$player->isOp() and !$this->plugin->getConfiguration()->isOpOverrideEnabled())
 		{
 			$this->plugin->setPermissions($player, $level);
 		}

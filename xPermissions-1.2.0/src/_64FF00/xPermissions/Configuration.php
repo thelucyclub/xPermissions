@@ -37,6 +37,11 @@ class Configuration
 			$this->config->set("message-on-group-change", "Ta-da! Your group has been changed into... a / an {GROUP}!");
 		}
 		
+		if(!$this->config->get("message-on-insufficient-build-permission"))
+		{
+			$this->config->set("message-on-insufficient-build-permission", "You don't have permission to build here.");
+		}
+		
 		$this->plugin->saveConfig();
 	}
 	
@@ -48,6 +53,11 @@ class Configuration
 	public function getMSGonGroupChange()
 	{
 		return $this->config->get("message-on-group-change");
+	}
+	
+	public function getMSGonIBuildPerm()
+	{
+		return $this->config->get("message-on-insufficient-build-permission");
 	}
 	
 	public function isFormatterEnabled()
