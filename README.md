@@ -8,9 +8,9 @@
 - Set up permissions for different groups
 - Multi-world permissions
 - Multi-group inheritance system
-- Support of prefixes, suffixes, and chat format!
+- Support of prefixes, suffixes, world name, and chat format!
 - Group aliases
-- And so on...
+- Custom build permissions that can deny a group building rights for a world.
 
 ## Commands
 

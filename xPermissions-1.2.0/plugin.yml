@@ -9,16 +9,16 @@ website: https://github.com/64FF00/xPermissions
 commands:
  xperms:
   aliases: [xpms, xpermissions]
-  description: Provides access to xPermissions commands.
+  description: Provides access to xPermissions commands using shorter strings of text.
 permissions:
  xperms.*:
   children:
    xperms.group.*:
     children:
      xperms.group.create:
-      description: "Allows you create a new group."
+      description: "Allows you to create a new group."
      xperms.group.help:
-      description: "Allows you to see usage of the plugin."
+      description: "Allows you to see usage of the group command."
      xperms.group.list:
       description: "Allows you to see a list of all groups."
      xperms.group.remove:
@@ -30,7 +30,7 @@ permissions:
    xperms.help:
     description: "Allows you to see usage of the plugin."
    xperms.info:
-    description: "Allows you to see info of the plugin."
+    description: "Allows you to see info about the plugin."
    xperms.reload:
     description: "Allows you to reload the config files."
    xperms.user.*:
