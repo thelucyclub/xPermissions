@@ -9,8 +9,8 @@
 - Multi-world permissions
 - Multi-group inheritance system
 - Support of prefixes, suffixes, world name, and chat format!
-- Group aliases
 - Custom build permissions that can deny a group building rights for a world.
+- Group aliases
 
 ## Commands
 
