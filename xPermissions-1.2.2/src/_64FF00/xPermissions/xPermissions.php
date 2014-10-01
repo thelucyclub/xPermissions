@@ -143,8 +143,6 @@ class xPermissions extends PluginBase
 		return $this->config;
 	}
 	
-	/*
-	
 	public function getCustomConfig($fileName)
 	{
 		if(file_exists($this->getDataFolder() . $fileName))
@@ -154,8 +152,6 @@ class xPermissions extends PluginBase
 		
 		return null;
 	}
-	
-	*/
 	
 	public function getDefaultGroup()
 	{
@@ -305,6 +301,23 @@ class xPermissions extends PluginBase
 		unset($groupsData[$groupName]);
 		
 		$this->setGroupsData($groupsData);
+	}
+	
+	public function removeUserData(Player $player)
+	{
+		$user = $this->getUser($player->getName());
+		
+		$dataPath = $user->getDataPath();
+		
+		$level = $this->getServer()->getDefaultLevel()->getName();
+		
+		if(count($user->getUserData()["worlds"]) <= 1)
+		{
+			if(isset($user->getUserData()["worlds"][$level]) and $user->getUserData()["worlds"][$level]["group"] == $this->getDefaultGroup()->getName())
+			{
+				unlink($dataPath);
+			}
+		}
 	}
 	
 	public function setDefaultGroup($groupName)

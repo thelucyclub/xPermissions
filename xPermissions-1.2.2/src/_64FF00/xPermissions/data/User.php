@@ -29,6 +29,13 @@ class User
 		$this->setUserData($temp_config);
 	}
 	
+	public function getDataPath()
+	{
+		$userName = $this->getPlayer()->getName();
+		
+		return $this->plugin->getDataFolder() . "players/" . strtolower($userName) . ".yml";
+	}
+	
 	public function getPlayer()
 	{
 		return $this->player;
@@ -80,9 +87,11 @@ class User
 	
 	public function loadUserConfig()
 	{
-		if(!(file_exists($this->plugin->getDataFolder() . "players/" . strtolower($this->player->getName()) . ".yml")))
+		$data_path = $this->getDataPath();
+		
+		if(!(file_exists($data_path)))
 		{
-			$this->config = new Config($this->plugin->getDataFolder() . "players/" . strtolower($this->player->getName()) . ".yml", Config::YAML, array(
+			$this->config = new Config($data_path, Config::YAML, array(
 				"username" => $this->getPlayer()->getName(),
 				"worlds" => array(
 				)
@@ -90,7 +99,7 @@ class User
 		}
 		else
 		{
-			$this->config = new Config($this->plugin->getDataFolder() . "players/" . strtolower($this->player->getName()) . ".yml", Config::YAML, array(
+			$this->config = new Config($data_path, Config::YAML, array(
 			));
 		}
 	}

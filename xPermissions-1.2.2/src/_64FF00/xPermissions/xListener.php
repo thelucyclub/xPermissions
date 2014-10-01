@@ -92,6 +92,8 @@ class xListener implements Listener
 		$player = $event->getPlayer();
 		
 		$this->plugin->removeAttachment($player);
+		
+		$this->plugin->removeUserData($player);
 	}
 
 	public function onPlayerQuit(PlayerQuitEvent $event)
@@ -99,5 +101,7 @@ class xListener implements Listener
 		$player = $event->getPlayer();
 		
 		$this->plugin->removeAttachment($player);
+		
+		$this->plugin->removeUserData($player);
 	}
 }

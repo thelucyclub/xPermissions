@@ -1,0 +1,50 @@
+name: xPermissions
+main: _64FF00\xPermissions\xPermissions
+version: 1.2.2
+api: [1.2.0]
+load: STARTUP
+author: 64FF00
+description: A simple and useless permissions manager for PocketMine.
+website: https://github.com/64FF00/xPermissions
+commands:
+ xperms:
+  aliases: [xpms, xpermissions]
+  description: Provides access to xPermissions commands.
+permissions:
+ xperms.*:
+  children:
+   xperms.build:
+    default: true
+    description: Allows you to break and place blocks.
+   xperms.group.*:
+    children:
+     xperms.group.create:
+      description: Allows you to create a new group.
+     xperms.group.help:
+      description: Allows you to see usage of the group command.
+     xperms.group.list:
+      description: Allows you to see a list of all groups.
+     xperms.group.remove:
+      description: Allows you remove some groups.
+     xperms.group.setperm:
+      description: Allows you to set permissions for a group.
+     xperms.group.unsetperm:
+      description: Allows you to unset permissions for a group.
+   xperms.help:
+    description: Allows you to see usage of the plugin.
+   xperms.info:
+    description: Allows you to see info about the plugin.
+   xperms.reload:
+    description: Allows you to reload the config files.
+   xperms.user.*:
+    children:
+     xperms.user.help:
+      description: Allows you to see usage of the plugin.
+     xperms.user.info:
+      description: Allows you to see info of a user.
+     xperms.user.setgroup:
+      description: Allows you to set group for a user.
+     xperms.user.setperm:
+      description: Allows you to set permissions for a user.
+     xperms.user.unsetperm:
+      description: Allows you to unset permissions for a user.
