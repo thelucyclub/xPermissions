@@ -128,6 +128,11 @@ class xPermissions extends PluginBase
 		return $result;
 	}
 	
+	public function getAllPermissions()
+	{
+		return array_keys($this->getServer()->getPluginManager()->getPermissions());
+	}
+	
 	public function getAttachment(Player $player)
 	{
 		if(!isset($this->attachments[$player->getName()]))

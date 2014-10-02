@@ -28,13 +28,14 @@ class Commands implements CommandExecutor
 		{
 			if(!$this->checkPermission($sender, "xperms.help")) return true;
 
-			$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms <group / help / info / reload / user>");
+			$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms <group / help / info / perms / reload / user>");
 				
 			return true;
 		}
 
 		switch($args[0])
 		{
+			case "gr":
 			case "group":
 			
 				if(!$this->checkPermission($sender, "xperms.group.help")) break;
@@ -211,6 +212,7 @@ class Commands implements CommandExecutor
 				
 				break;
 			
+			case "if":
 			case "info":
 			
 				if(!$this->checkPermission($sender, "xperms.info")) break;
@@ -218,7 +220,19 @@ class Commands implements CommandExecutor
 				$sender->sendMessage(TextFormat::GREEN . "[xPermissions] <-- xPermissions v" . $this->plugin->getDescription()->getVersion() . " by " . $this->plugin->getDescription()->getAuthors()[0] . "! -->");
 
 				break;	
+				
+			case "ps":
+			case "perms":
+				
+				if(!$this->checkPermission($sender, "xperms.perms")) break;
+				
+				$perms = $this->plugin->getAllPermissions();
+				
+				// TODO
+				
+				break;
 			
+			case "rl":
 			case "reload":
 			
 				if(!$this->checkPermission($sender, "xperms.reload")) break;
@@ -229,6 +243,7 @@ class Commands implements CommandExecutor
 		
 				break;
 			
+			case "us":
 			case "user":
 			
 				if(!$this->checkPermission($sender, "xperms.user.help")) break;
