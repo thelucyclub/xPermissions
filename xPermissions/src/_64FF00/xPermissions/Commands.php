@@ -8,6 +8,7 @@ use _64FF00\xPermissions\data\User;
 use pocketmine\command\Command;
 use pocketmine\command\CommandExecutor;
 use pocketmine\command\CommandSender;
+use pocketmine\command\ConsoleCommandSender;
 
 use pocketmine\Player;
 
@@ -28,7 +29,7 @@ class Commands implements CommandExecutor
 		{
 			if(!$this->checkPermission($sender, "xperms.help")) return true;
 
-			$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms <group / help / info / perms / reload / user>");
+			$this->showUsage($sender);
 				
 			return true;
 		}
@@ -217,19 +218,59 @@ class Commands implements CommandExecutor
 			
 				if(!$this->checkPermission($sender, "xperms.info")) break;
 				
-				$sender->sendMessage(TextFormat::GREEN . "[xPermissions] <-- xPermissions v" . $this->plugin->getDescription()->getVersion() . " by " . $this->plugin->getDescription()->getAuthors()[0] . "! -->");
+				$sender->sendMessage(TextFormat::GREEN . "[xPermissions] xPermissions v" . $this->plugin->getDescription()->getVersion() . " by " . $this->plugin->getDescription()->getAuthors()[0] . "! >_<");
 
-				break;	
+				break;
 				
-			case "ps":
-			case "perms":
+			case "pl":
+			case "plist":
 				
-				if(!$this->checkPermission($sender, "xperms.perms")) break;
+				if(!$this->checkPermission($sender, "xperms.plist")) break;
 				
-				$perms = $this->plugin->getAllPermissions();
+				if(count($args) > 2)
+				{
+					$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms plist [PAGE_NUMBER]");
+
+					break;
+				}
 				
-				// TODO
+				$permissions = $this->plugin->getAllPermissions();
 				
+				@sort($permissions, SORT_NATURAL);
+				
+				$height = $sender instanceof ConsoleCommandSender ? 36 : 6;
+				
+				$chunked_permissions = array_chunk($permissions, $height);
+				
+				$maxPageNumber = count($chunked_permissions);
+				
+				if(!isset($args[1]) || !is_numeric($args[1]))
+				{
+					$pageNumber = 1;
+				}
+				else
+				{
+					if($args[1] <= 0)
+					{
+						$pageNumber = 1;
+					}
+					elseif($args[1] > $maxPageNumber)
+					{
+						$pageNumber = $maxPageNumber;
+					}
+					else
+					{
+						$pageNumber = $args[1];
+					}
+				}
+				
+				$sender->sendMessage(TextFormat::GREEN . "[xPermissions] List of all permissions on your server [" . $pageNumber . " / " . $maxPageNumber . "]");
+				
+				foreach($chunked_permissions[$pageNumber - 1] as $permission)
+				{
+					$sender->sendMessage(TextFormat::GREEN . "[xPermissions] - " . $permission);
+				}
+			
 				break;
 			
 			case "rl":
@@ -453,7 +494,7 @@ class Commands implements CommandExecutor
 				
 				if(!$this->checkPermission($sender, "xperms.help")) break;
 
-				$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms <group / help / info / reload / user>");
+				$this->showUsage($sender);
 				
 				break;
 		}
@@ -471,5 +512,10 @@ class Commands implements CommandExecutor
 		}
 
 		return true;
+	}
+	
+	private function showUsage(CommandSender $sender)
+	{
+		$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms <group / help / info / plist / reload / user>");
 	}
 }

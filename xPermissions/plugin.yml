@@ -34,8 +34,8 @@ permissions:
     description: Allows you to see usage of the plugin.
    xperms.info:
     description: Allows you to see info about the plugin. 
-   xperms.perms:
-    description: Allows you to check all permissions in your server.
+   xperms.plist:
+    description: Allows you to list all permissions on your server.
    xperms.reload:
     description: Allows you to reload the config files.
    xperms.user.*:
