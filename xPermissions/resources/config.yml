@@ -2,5 +2,5 @@
 chat-format: '<{PREFIX} {USER_NAME}> {MESSAGE}'
 enable-formatter: true
 message-on-group-change: Ta-da! Your group has been changed into... a / an {GROUP}!
-override-op-permissions: false
+override-op-permissions: true
 ...
