@@ -425,7 +425,7 @@ class Commands implements CommandExecutor
 						
 						$user = $this->plugin->getUser($player->getName());
 								
-						$user->addUserPermission($permission, $level);
+						$user->addUserPermission($permission, $level->getName());
 						
 						if($player instanceof Player)
 						{
