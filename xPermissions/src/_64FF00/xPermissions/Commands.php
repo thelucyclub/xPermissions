@@ -264,7 +264,7 @@ class Commands implements CommandExecutor
 					}
 				}
 				
-				$sender->sendMessage(TextFormat::GREEN . "[xPermissions] List of all permissions on your server [" . $pageNumber . " / " . $maxPageNumber . "]");
+				$sender->sendMessage(TextFormat::GREEN . "[xPermissions] --- List of all permissions on your server [" . $pageNumber . " / " . $maxPageNumber . "] ---");
 				
 				foreach($chunked_permissions[$pageNumber - 1] as $permission)
 				{
@@ -293,7 +293,7 @@ class Commands implements CommandExecutor
 				{
 					$sender->sendMessage(TextFormat::GREEN . "[xPermissions] Usage: /xperms user <info / setgroup / setperm / unsetperm>");
 
-					return true;
+					break;
 				}
 						
 				switch($args[1])
