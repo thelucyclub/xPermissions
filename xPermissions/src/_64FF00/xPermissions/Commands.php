@@ -244,9 +244,29 @@ class Commands implements CommandExecutor
 				
 				$maxPageNumber = count($chunked_permissions);
 				
-				if(!isset($args[1]) || !is_numeric($args[1]))
+				if(!isset($args[1]))
 				{
 					$pageNumber = 1;
+				}
+				elseif(!is_numeric($args[1]))
+				{
+					$permissions = $this->plugin->getPluginPermissions($args[1]);
+					
+					if(empty($permissions))
+					{
+						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] [ERROR] Plugin " . $args[1] . " doesn't exist.");
+						
+						break;
+					}
+					
+					$sender->sendMessage(TextFormat::GREEN . "[xPermissions] --- All permission nodes found for " .  $args[1] . " ---");
+				
+					foreach($permissions as $permission)
+					{
+						$sender->sendMessage(TextFormat::GREEN . "[xPermissions] - " . $permission->getName());
+					}
+					
+					break;
 				}
 				else
 				{
@@ -506,7 +526,7 @@ class Commands implements CommandExecutor
 	{
 		if(!$sender->hasPermission($permission))
 		{
-			$sender->sendMessage(TextFormat::RED . "You don't have permission to do that.");
+			$sender->sendMessage(TextFormat::RED . "You don't have permission to use this command.");
 
 			return false;
 		}

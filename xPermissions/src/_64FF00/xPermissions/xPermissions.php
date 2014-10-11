@@ -229,6 +229,13 @@ class xPermissions extends PluginBase
 		return array_merge($group_permissions, $user_permissions);
 	}
 	
+	public function getPluginPermissions($pluginName)
+	{
+		$plugin = $this->getServer()->getPluginManager()->getPlugin($pluginName);
+		
+		return ($plugin != null) ? $plugin->getDescription()->getPermissions() : null;
+	}
+	
 	public function getValidPlayer($userName)
 	{
 		$player = $this->getServer()->getPlayer($userName);

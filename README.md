@@ -23,7 +23,7 @@
 | /xperms group unsetperm | [GROUP_NAME], [PERMISSION], (LEVEL_NAME) |
 | /xperms help | ... | 
 | /xperms info | ... | 
-| /xperms plist | (PAGE_NUMBER) | 
+| /xperms plist | (PAGE_NUMBER / PLUGIN_NAME) | 
 | /xperms reload | ... | 
 | /xperms user info | [USER_NAME], (LEVEL_NAME) |
 | /xperms user setgroup | [USER_NAME], [GROUP_NAME], (LEVEL_NAME) | 
