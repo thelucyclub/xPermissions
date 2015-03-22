@@ -1,18 +1,70 @@
 ---
 Default:
   alias: 'd'
-  prefix: '[Default]'
+  prefix: '[Player]'
   suffix: ''
   default-group: true
   inheritance: []
   worlds:
-   world:
-    permissions:
-     - -pocketmine.command.kill
+  HUB:
+      permissions:
+     - simpleauth.move
+     - simpleauth.command.login
+     - simpleauth.command.register
      - pocketmine.command.list
-     - -pocketmine.command.me
+     - pocketmine.command.me
+  lobby:
+      permissions:
+     - simpleauth.move
+     - simpleauth.command.login
+     - simpleauth.command.register
+     - pocketmine.command.list
+     - pocketmine.command.me
+  Games:
+      permissions:
+     - simpleauth.move
+     - simpleauth.command.login
+     - simpleauth.command.register
+     - pocketmine.command.list
+     - pocketmine.command.me
+  SamCraft:
+      permissions:
+     - simpleauth.move
+     - simpleauth.command.login
+     - simpleauth.command.register
+     - pocketmine.command.list
+     - pocketmine.command.me
+  servers:
+      permissions:
+     - simpleauth.move
+     - simpleauth.command.login
+     - simpleauth.command.register
+     - pocketmine.command.list
+     - pocketmine.command.me
+  skyisland:
+      permissions:
+     - simpleauth.move
+     - simpleauth.command.login
+     - simpleauth.command.register
+     - pocketmine.command.list
+     - pocketmine.command.me
      - xperms.build
-     - xperms.info
+  survivaldefault:
+      permissions:
+     - simpleauth.move
+     - simpleauth.command.login
+     - simpleauth.command.register
+     - pocketmine.command.list
+     - pocketmine.command.me
+     - xperms.build
+  survivalbeta:
+    permissions:
+     - simpleauth.move
+     - simpleauth.command.login
+     - simpleauth.command.register
+     - pocketmine.command.list
+     - pocketmine.command.me
+     - xperms.build
 Mod:
   alias: 'm'
   prefix: '[Mod]'
@@ -20,7 +72,7 @@ Mod:
   inheritance:
   - Default
   worlds:
-   world:
+  HUB:
     permissions:
     - pocketmine.broadcast
     - pocketmine.command.gamemode
@@ -29,6 +81,85 @@ Mod:
     - pocketmine.command.say
     - pocketmine.command.teleport
     - pocketmine.command.time
+    - essentials.mute
+    - xperms.build
+  lobby:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command.gamemode
+    - pocketmine.command.give
+    - pocketmine.command.kick
+    - pocketmine.command.say
+    - pocketmine.command.teleport
+    - pocketmine.command.time
+    - essentials.mute
+    - xperms.build
+  Games:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command.gamemode
+    - pocketmine.command.give
+    - pocketmine.command.kick
+    - pocketmine.command.say
+    - pocketmine.command.teleport
+    - pocketmine.command.time
+    - essentials.mute
+    - xperms.build
+  SamCraft:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command.gamemode
+    - pocketmine.command.give
+    - pocketmine.command.kick
+    - pocketmine.command.say
+    - pocketmine.command.teleport
+    - pocketmine.command.time
+    - essentials.mute
+    - xperms.build
+  servers:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command.gamemode
+    - pocketmine.command.give
+    - pocketmine.command.kick
+    - pocketmine.command.say
+    - pocketmine.command.teleport
+    - pocketmine.command.time
+    - essentials.mute
+    - xperms.build
+  skyisland:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command.gamemode
+    - pocketmine.command.give
+    - pocketmine.command.kick
+    - pocketmine.command.say
+    - pocketmine.command.teleport
+    - pocketmine.command.time
+    - essentials.mute
+    - xperms.build
+  survivaldefault:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command.gamemode
+    - pocketmine.command.give
+    - pocketmine.command.kick
+    - pocketmine.command.say
+    - pocketmine.command.teleport
+    - pocketmine.command.time
+    - essentials.mute
+    - xperms.build
+  survivalbeta:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command.gamemode
+    - pocketmine.command.give
+    - pocketmine.command.kick
+    - pocketmine.command.say
+    - pocketmine.command.teleport
+    - pocketmine.command.time
+    - essentials.mute
+    - xperms.build
 Admin:
   alias: 'a'
   prefix: '[Admin]'
@@ -37,11 +168,54 @@ Admin:
   - Default
   - Mod
   worlds:
-   world:
+  HUB:
     permissions:
+    - pocketmine.command.ban-ip
+    - pocketmine.command.pardon-ip
     - pocketmine.command.ban
-    - pocketmine.command.unban
-    - pocketmine.command.whitelist
+    - pocketmine.command.pardon
+  lobby:
+    permissions:
+    - pocketmine.command.ban-ip
+    - pocketmine.command.pardon-ip
+    - pocketmine.command.ban
+    - pocketmine.command.pardon
+  Games:
+    permissions:
+    - pocketmine.command.ban-ip
+    - pocketmine.command.pardon-ip
+    - pocketmine.command.ban
+    - pocketmine.command.pardon
+  SamCraft:
+    permissions:
+    - pocketmine.command.ban-ip
+    - pocketmine.command.pardon-ip
+    - pocketmine.command.ban
+    - pocketmine.command.pardon
+  servers:
+    permissions:
+    - pocketmine.command.ban-ip
+    - pocketmine.command.pardon-ip
+    - pocketmine.command.ban
+    - pocketmine.command.pardon
+  skyisland:
+    permissions:
+    - pocketmine.command.ban-ip
+    - pocketmine.command.pardon-ip
+    - pocketmine.command.ban
+    - pocketmine.command.pardon
+  survivaldefault:
+    permissions:
+    - pocketmine.command.ban-ip
+    - pocketmine.command.pardon-ip
+    - pocketmine.command.ban
+    - pocketmine.command.pardon
+  survivalbeta: 
+    permissions:
+    - pocketmine.command.ban-ip
+    - pocketmine.command.pardon-ip
+    - pocketmine.command.ban
+    - pocketmine.command.pardon
 Owner:
   alias: 'o'
   prefix: '[Owner]'
@@ -51,9 +225,52 @@ Owner:
   - Mod
   - Admin
   worlds:
-   world:
+  HUB:
     permissions:
     - pocketmine.broadcast
     - pocketmine.command
     - xperms.*
+    - *.*
+  lobby:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command
+    - xperms.*
+    - *.*
+  Games:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command
+    - xperms.*
+    - *.*
+  SamCraft:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command
+    - xperms.*
+    - *.*
+  servers:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command
+    - xperms.*
+    - *.*
+  skyisland:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command
+    - xperms.*
+    - *.*
+  survivaldefault:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command
+    - xperms.*
+    - *.*
+  survivalbeta:
+    permissions:
+    - pocketmine.broadcast
+    - pocketmine.command
+    - xperms.*
+    - *.*
 ...
